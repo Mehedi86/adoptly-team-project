@@ -1,0 +1,7 @@
+.banner1 {
+    background-image: linear-gradient(to left, rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.514), rgba(0, 0, 0, 0.5)), url(/banner/banner1.jpg);
+}
+
+.banner2 {
+    background-image: linear-gradient(to left, rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.678)), url(/banner/banner2.jpg);
+}
