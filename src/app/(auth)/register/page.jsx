@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useForm, SubmitHandler } from "react-hook-form"
+import { useForm} from "react-hook-form"
 export default function RegisterPage() {
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -38,7 +38,7 @@ export default function RegisterPage() {
         </form>
         <hr  className="border border-white mt-5"/>
         <div className="mt-4 *:flex *:justify-center">
-        <p className="text-black text-lg">Already have an account? <Link href="/login" className="text-red-500 underline hover:text-red-500 ml-2  transition">Login</Link></p>
+        <p className="text-black text-lg">Already have an account? <Link href="/login" className="text-red-500 underline hover:text-red-600 ml-2  transition">Login</Link></p>
         </div>
     </div>
     </div>
