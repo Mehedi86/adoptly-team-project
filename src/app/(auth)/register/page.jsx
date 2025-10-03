@@ -9,8 +9,8 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="bg-orange-300 p-4 lg:w-[400px]  shadow-lg ">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
+      <div className="bg-orange-300 p-5 lg:w-[450px]  shadow-lg ">
       <h2 className="text-2xl text-black font-bold mb-4 text-center">Register</h2>
         <form onSubmit={handleSubmit(onSubmit)} className=" flex flex-col gap-2">
           
