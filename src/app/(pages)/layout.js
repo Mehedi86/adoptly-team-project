@@ -1,18 +1,18 @@
 import React from 'react';
-import Footer from '../(layout)/Footer/Footer';
 import Navbar from '../(layout)/Navbar/Navbar';
+import Footer from '../(layout)/Footer/Footer';
 
-const PageLayout = async({children}) => {
-  return (
-    <div>
-      <Navbar/>
-      <main className="min-h-screen">
-        {children}
-      </main> 
- 
-      <Footer/>
-    </div>
-  );
+
+const PageLayout = async ({ children }) => {
+    return (
+        <div>
+            <Navbar />
+            <main className="min-h-screen">
+                {children}
+            </main>
+            <Footer />
+        </div>
+    );
 };
 
 export default PageLayout;
