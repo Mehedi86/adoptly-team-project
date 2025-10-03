@@ -1,5 +1,6 @@
 
 import AdoptionSection from "./(component)/adoption/adoptionSection";
+import ChooseUs from "./(component)/chooseUs/ChooseUs";
 import FunFact from "./(component)/funfact/FunFact";
 import OfferSection from "./(component)/offer/offerSection";
 import CareRequirements from "./(component)/requirements/careRequirements";
@@ -28,6 +29,7 @@ export default function Landing() {
       <CareRequirements />
 
       <FunFact />
+      <ChooseUs />
     </div>
   );
 }
