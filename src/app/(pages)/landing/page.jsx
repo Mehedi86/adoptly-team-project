@@ -1,5 +1,6 @@
 
 import AdoptionSection from "./(component)/adoption/adoptionSection";
+import FunFact from "./(component)/funfact/FunFact";
 import OfferSection from "./(component)/offer/offerSection";
 import CareRequirements from "./(component)/requirements/careRequirements";
 import SupportHero from "./(component)/support/supportHero";
@@ -12,7 +13,7 @@ import SponsorAndDonorSection from "./SponsorAndDonorSection/SponsorAndDonorSect
 
 export default function Landing() {
   return (
-    <div>
+    <div className="container mx-auto">
 
       
       {/* this is landing page */}
@@ -25,6 +26,8 @@ export default function Landing() {
       <OfferSection />
       <SupportHero />
       <CareRequirements />
+
+      <FunFact />
     </div>
   );
 }
