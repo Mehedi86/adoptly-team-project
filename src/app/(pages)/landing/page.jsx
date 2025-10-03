@@ -32,6 +32,7 @@ export default function Landing() {
       <FunFact />
       <ChooseUs />
       <BlogSection />
+      
     </div>
   );
 }
