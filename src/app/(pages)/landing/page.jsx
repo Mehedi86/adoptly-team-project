@@ -1,5 +1,6 @@
 
 import AdoptionSection from "./(component)/adoption/adoptionSection";
+import BlogSection from "./(component)/Blog/Blog";
 import ChooseUs from "./(component)/chooseUs/ChooseUs";
 import FunFact from "./(component)/funfact/FunFact";
 import OfferSection from "./(component)/offer/offerSection";
@@ -30,6 +31,7 @@ export default function Landing() {
 
       <FunFact />
       <ChooseUs />
+      <BlogSection />
     </div>
   );
 }
