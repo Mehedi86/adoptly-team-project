@@ -14,6 +14,7 @@ export default function RegisterPage() {
       photo: data.profilePic,
       role: "user",
     }
+    console.log(userInfo);
     userRegistrationSystem(data?.email, data?.password)
       .then((result) => {
         const loggedUser = result.user;
