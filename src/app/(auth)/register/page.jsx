@@ -1,13 +1,30 @@
 "use client";
+import useAuth from "@/hooks/useAuth";
+import { createUser } from "@/server/user";
 import Link from "next/link";
 import { useForm} from "react-hook-form"
+import toast from "react-hot-toast";
 export default function RegisterPage() {
-
+  const { user, userRegistrationSystem } = useAuth();
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    const userInfo = {
+      name: data.name,
+      email: data.email,
+      photo: data.profilePic,
+      role: "user",
+    }
+    console.log(userInfo);
+    userRegistrationSystem(data?.email, data?.password)
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+        // update user profile
+        // save user to database
+        createUser(userInfo);
+        toast.success("User registered successfully!");
+      });
   }
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
       <div className="bg-orange-300 p-5 lg:w-[450px]  shadow-lg ">

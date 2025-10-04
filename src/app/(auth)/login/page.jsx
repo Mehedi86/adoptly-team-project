@@ -1,11 +1,27 @@
 "use client";
+import useAuth from "@/hooks/useAuth";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import {useForm} from "react-hook-form"
+import toast from "react-hot-toast";
 export default function LoginPage() {
+  const { userLoginSystem } = useAuth();
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const location = searchParams.get("redirect") || "/";
+
   const onSubmit = (data) => {
-    console.log(data);
+    userLoginSystem(data?.email, data?.password)
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+        toast.success("Login successful");
+        router.push(location);
+
+      });
   }
+
   return (
    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
       <div className="bg-orange-300 p-5 lg:w-[450px]  shadow-lg ">
