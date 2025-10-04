@@ -1,9 +1,11 @@
 "use client";
 import useAuth from "@/hooks/useAuth";
+import { createUser } from "@/server/user";
 import Link from "next/link";
 import { useForm} from "react-hook-form"
+import toast from "react-hot-toast";
 export default function RegisterPage() {
-  const { userRegistrationSystem} = useAuth();
+  const { user, userRegistrationSystem } = useAuth();
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const onSubmit = (data) => {
     const userInfo = {
@@ -12,23 +14,14 @@ export default function RegisterPage() {
       photo: data.profilePic,
       role: "user",
     }
-    userRegistrationSystem(userInfo?.email, userInfo?.password)
+    userRegistrationSystem(data?.email, data?.password)
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
         // update user profile
         // save user to database
-        fetch(`${process.env.BASE_URL}/user`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(userInfo)
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-          });
+        createUser(userInfo);
+        toast.success("User registered successfully!");
       });
   }
   return (
