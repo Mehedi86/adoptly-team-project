@@ -35,7 +35,7 @@ const PetAboutUs = () => {
   };
 
   return (
-    <section className="relative py-16 bg-white">
+    <section className="relative py-16">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-10 items-start">
         {/* Left Side */}
         <motion.div
@@ -44,20 +44,20 @@ const PetAboutUs = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl font-bold text-gray-900 dark:text-[#cfcfcf] mb-4">
             More About us
           </h2>
-          <p className="text-lg text-gray-500 mb-6">
+          <p className="text-lg text-gray-500 dark:text-[#bbb] mb-6">
             We offer quick & easy services for cats and dogs, accumsan felis id,
             fermentum purus. Quisque vitae hendrerit elit.
           </p>
-          <p className="text-gray-600 leading-relaxed mb-4">
+          <p className="text-gray-600 dark:text-[#bbb] leading-relaxed mb-4">
             Aliquam erat volutpat In id fermentum augue, ut pellentesque leo.
             Maecenas at arcu risus. Donec commodo sodales ex, scelerisque laoreet
             nibh hendrerit id. In aliquet magna nec lobortis maximus. Etiam
             rhoncus leo a dolor placerat, nec elementum ipsum convall.
           </p>
-          <p className="text-gray-600 leading-relaxed">
+          <p className="text-gray-600 dark:text-[#bbb] leading-relaxed">
             Maecenas at arcu risus. Donec commodo sodales ex, scelerisque laoreet
             nibh hendrerit id. In aliquet magna nec lobortis maximus. Etiam
             rhoncus leo a dolor placerat, nec elementum ipsum convall.
@@ -80,10 +80,10 @@ const PetAboutUs = () => {
             >
               {/* Title */}
               <div className="flex justify-between items-center">
-                <h3 className="text-lg font-bold text-blue-700">
+                <h3 className="text-lg font-bold text-[#bb5b43]">
                   {item.title}
                 </h3>
-                <span className="text-blue-700">
+                <span className="text-[#bb5b43]">
                   {openIndex === index ? "▲" : "▼"}
                 </span>
               </div>
@@ -96,7 +96,7 @@ const PetAboutUs = () => {
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.4 }}
-                    className="mt-2 text-gray-600 leading-relaxed overflow-hidden"
+                    className="mt-2 text-gray-600 dark:text-[#bbb] leading-relaxed overflow-hidden"
                   >
                     {item.content.map((text, i) => (
                       <p key={i} className="mb-2">

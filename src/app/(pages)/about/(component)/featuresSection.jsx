@@ -39,7 +39,7 @@ const features = [
 
 const FeaturesSection = () => {
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 ">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
         {/* Heading */}
         <motion.h2
@@ -47,7 +47,7 @@ const FeaturesSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-4xl text-black font-bold mb-12"
+          className="text-4xl text-black dark:text-[#cfcfcf] font-bold mb-12"
         >
           Our Features
         </motion.h2>
@@ -71,8 +71,8 @@ const FeaturesSection = () => {
                 >
                   {feature.icon}
                 </motion.div>
-                <h3 className="font-bold text-lg text-black">{feature.title}</h3>
-                <p className="text-gray-600">{feature.desc}</p>
+                <h3 className="font-bold text-lg text-black dark:text-[#cfcfcf]">{feature.title}</h3>
+                <p className="text-gray-600 dark:text-[#bbb]">{feature.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -112,8 +112,8 @@ const FeaturesSection = () => {
                 >
                   {feature.icon}
                 </motion.div>
-                <h3 className="font-bold text-lg text-black">{feature.title}</h3>
-                <p className="text-gray-600">{feature.desc}</p>
+                <h3 className="font-bold text-lg text-black dark:text-[#cfcfcf]">{feature.title}</h3>
+                <p className="text-gray-600 dark:text-[#bbb]">{feature.desc}</p>
               </motion.div>
             ))}
           </div>

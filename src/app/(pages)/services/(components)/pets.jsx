@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function AdoptionInfo() {
   return (
-    <section className="py-16 px-6 md:px-16 bg-white">
+    <section className="py-16 px-6 md:px-16">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
         {/* Text Content */}
         <motion.div
@@ -15,22 +15,22 @@ export default function AdoptionInfo() {
           viewport={{ once: true }}
           className="flex-1"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-[#cfcfcf] mb-4 font-truculenta">
             Adopt a Pet Today
           </h2>
-          <p className="text-gray-600 mb-6 leading-relaxed">
+          <p className="text-gray-600 dark:text-[#bbb] font-lato mb-6 leading-relaxed">
             Bringing a pet into your life is a lifelong commitment. By adopting,
             you give a loving home to animals in need and create a bond that
             lasts forever.
           </p>
-          <p className="text-gray-600 mb-6 leading-relaxed">
+          <p className="text-gray-600 dark:text-[#bbb] font-lato mb-6 leading-relaxed">
             Explore our pets available for adoption and find your new best friend.
             Each pet is cared for, vaccinated, and ready to join your family.
           </p>
           <motion.button
             whileTap={{ scale: 0.95 }}
             whileHover={{ scale: 1.05 }}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-full transition"
+            className="bg-[#b4543b] hover:bg-[#e76f51] text-white font-bold px-6 py-3 rounded-full transition"
           >
             Learn More
           </motion.button>

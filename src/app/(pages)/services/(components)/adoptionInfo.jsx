@@ -25,7 +25,7 @@ const features = [
 
 export default function AdoptionInfo() {
   return (
-    <section className="py-16 px-6 md:px-20 bg-white">
+    <section className="py-16 px-6 md:px-20">
       <div className="grid md:grid-cols-2 gap-12 items-center">
         {/* LEFT CONTENT */}
         <div>
@@ -34,7 +34,7 @@ export default function AdoptionInfo() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-4xl font-bold text-gray-900 mb-4"
+            className="text-4xl font-bold text-gray-900 dark:text-[#cfcfcf] mb-4 font-truculenta"
           >
             Getting Ready for a New Furry Family Member
           </motion.h2>
@@ -44,7 +44,7 @@ export default function AdoptionInfo() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-gray-600 mb-8"
+            className="text-gray-600 font-lato dark:text-[#cfcfcf] mb-8"
           >
             Pellentesque commodo at euismod nibh integer eros per conubia.
             Praesent cras eget sodales neque molestie dui integer tempor euismod.
@@ -60,10 +60,10 @@ export default function AdoptionInfo() {
                 viewport={{ once: true }}
                 className="flex items-start gap-3"
               >
-                <CheckCircle className="text-red-500 mt-1 w-6 h-6" />
+                <CheckCircle className="text-red-500 mt-1 w-32 h-10" />
                 <div>
-                  <h3 className="font-bold text-lg">{item.title}</h3>
-                  <p className="text-gray-600 text-sm mt-1">{item.desc}</p>
+                  <h3 className="font-bold text-xl dark:text-[#cfcfcf]">{item.title}</h3>
+                  <p className="text-gray-600 dark:text-[#bbbb] font-lato mt-1">{item.desc}</p>
                 </div>
               </motion.div>
             ))}

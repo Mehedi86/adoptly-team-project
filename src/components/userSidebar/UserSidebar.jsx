@@ -1,5 +1,7 @@
 'use client';
-import { Home, Inbox, Calendar, Search, Settings } from "lucide-react"
+import { Home, Inbox, Calendar, Search, Settings, } from "lucide-react"
+import { LuLayoutGrid } from "react-icons/lu";
+import { BsFilePost } from "react-icons/bs";
 import {
   Sidebar,
   SidebarContent,
@@ -12,17 +14,18 @@ import {
 } from "@/components/ui/sidebar"
 import Link from "next/link";
 
+
 // Menu items.
 const items = [
   {
-    title: "User Home",
+    title: "Overview",
     url: "/userDashboard",
-    icon: Home,
+    icon: LuLayoutGrid,
   },
   {
-    title: "Inbox",
+    title: "Manage Post",
     url: "#",
-    icon: Inbox,
+    icon: BsFilePost,
   },
   {
     title: "Calendar",
