@@ -35,13 +35,13 @@ const FaqSection = () => {
 
   return (
     <motion.div
-      className="w-full bg-white p-6 md:p-8 text-black"
+      className="w-full border dark:shadow-2xl p-6 md:p-8 text-black"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.2 }}
     >
-      <h2 className="text-3xl font-bold mb-2">Frequently Asked Questions</h2>
-      <p className="mb-6">
+      <h2 className="text-3xl font-bold mb-2 dark:text-[#cfcfcf]">Frequently Asked Questions</h2>
+      <p className="mb-6 dark:text-[#bbb]">
         Congue per mattis orci ac natoque facilisi eros tristique commodo justo penatibus. Et pulvinar
         litora senectus auctor nibh mollis sed mus vehicula.
       </p>
@@ -50,13 +50,13 @@ const FaqSection = () => {
         {faqs.map((faq, index) => (
           <div
             key={index}
-            className="border border-gray-200 rounded-lg shadow-sm overflow-hidden"
+            className="border border-gray-200 dark:border-[#bbbb] rounded-lg shadow-sm overflow-hidden"
           >
             <button
               onClick={() => toggleFaq(index)}
-              className="w-full flex justify-between items-center text-left p-4 hover:bg-gray-50"
+              className="w-full flex justify-between items-center text-left p-4 dark:bg-[#636262bb] "
             >
-              <span className="font-semibold text-lg">{faq.question}</span>
+              <span className="font-semibold text-lg dark:text-[#cfcfcf]">{faq.question}</span>
               <span className="text-xl">
                 {activeIndex === index ? '−' : '+'}
               </span>
@@ -69,7 +69,7 @@ const FaqSection = () => {
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="px-4 pb-4"
+                  className="px-4 pb-4 dark:text-[#bbb]"
                 >
                   {faq.answer}
                 </motion.div>

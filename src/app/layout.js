@@ -27,16 +27,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`dark:bg-[#0d1b2a] ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-       
-          <AuthProvider>
-            <Toaster />
-       <TanstackProvider>{children}</TanstackProvider>
+
+        <AuthProvider>
+          <Toaster />
+          <TanstackProvider>{children}</TanstackProvider>
         </AuthProvider>
-   
+
       </body>
     </html>
   );

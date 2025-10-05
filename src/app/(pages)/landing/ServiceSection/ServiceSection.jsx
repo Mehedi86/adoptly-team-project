@@ -6,7 +6,7 @@ const ServiceSection = () => {
 
     return (
         <div className='relative z-20 lg:mx-10 mx-2 -mt-14 mb-10'>
-            <div className='flex flex-col lg:flex-row items-center gap-5 shadow-2xl p-8 rounded-2xl bg-white'>
+            <div className='flex flex-col lg:flex-row items-center gap-5 shadow-2xl p-8 rounded-2xl bg-white dark:bg-[#201f1f] dark:border'>
                 <div className='flex gap-2 pr-5 pb-4  lg:border-r-2 lg:border-dotted lg:border-[#9b9b9bbb]'>
                     <IoShieldCheckmarkSharp className='text-6xl text-[#e76f51]' />
                     <div className='space-y-1'>

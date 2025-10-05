@@ -3,7 +3,7 @@ const btnStyle = "text-white font-medium bg-pink-600 px-4 py-1 rounded";
 
 import Link from "next/link";
 
-export default function AboutHero({title}) {
+export default function AboutHero({ title }) {
   return (
     <section
       className="relative w-full h-[300px] bg-center bg-cover flex items-center"
@@ -28,10 +28,10 @@ export default function AboutHero({title}) {
             About
           </Link>
           <span>/</span>
-            <Link href="/contact" className={btnStyle}>
+          <Link href="/contact" className={btnStyle}>
             <span className={btnStyle}>contact us</span>
           </Link>
-          
+
         </nav>
       </div>
     </section>

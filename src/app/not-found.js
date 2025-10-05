@@ -11,7 +11,7 @@ const notFoundPage = () => {
                 <div className='space-y-5 text-center'>
                     <h1 className='uppercase text-2xl'>Page not found</h1>
                     <Link href={"/"}>
-                        <button className='btn rounded-xl bg-[#e76f51] text-white'>Go back to home</button>
+                        <button className='btn rounded-xl border-0 outline-0 bg-[#e76f51] text-white'>Go back to home</button>
                     </Link>
                 </div>
             </div>

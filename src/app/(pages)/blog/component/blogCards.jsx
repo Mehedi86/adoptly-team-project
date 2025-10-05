@@ -114,7 +114,7 @@ const blogCards = () => {
         <div className="lg:mx-10 mx-3 my-10 grid grid-cols-1 lg:grid-cols-3 gap-5">
             {
                 blogsData.map(blog => (
-                    <div className="group shadow-2xl rounded-xl">
+                    <div className="group shadow-2xl rounded-xl dark:rounded-xl dark:border">
                         <div className=" h-72 overflow-hidden rounded-t-2xl">
                             <Image className="group-hover:scale-110 group-hover:rotate-3 duration-300 w-full h-full rounded-t-xl" src={blog.image} width={500} height={300} alt="blog.title" />
                         </div>
@@ -122,9 +122,9 @@ const blogCards = () => {
                             <div>
                                 <p className="text-right font-lato text-[#E76F51]">{blog.date}</p>
                             </div>
-                            <h1 className="text-xl font-bold font-truculenta">{blog.title}</h1>
+                            <h1 className="text-xl font-bold dark:text-[#cfcfcf] font-truculenta">{blog.title}</h1>
                             <p className="font-lato text-[#757575]">{blog.description.slice(0, 110)}...</p>
-                            <button className="btn w-32 rounded-xl bg-[#E76F51] text-white">
+                            <button className="btn w-32 rounded-xl border-0 bg-[#E76F51] text-white">
                                 Read More
                                 <FaAnglesRight />
                             </button>
