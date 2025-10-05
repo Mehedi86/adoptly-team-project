@@ -107,11 +107,11 @@ const Navbar = () => {
                                 className="theme-controller text-white" value="synthwave" />
                             {/* moon icon */}
                             <MdSunny
-                                className="text-[#ffa700] dark:text-[#ffa700]  swap-off h-10 w-10 fill-current"
+                                className="text-[#ffa700] dark:text-[#ffa700]  swap-off h-10 w-8 fill-current"
                             />
                             {/* sun icon */}
                             <MdDarkMode
-                                className="text-white  dark:text-white swap-on h-10 w-10 fill-current"
+                                className="text-white  dark:text-white swap-on h-10 w-8 fill-current"
                             />
                         </label>
                     </div>
