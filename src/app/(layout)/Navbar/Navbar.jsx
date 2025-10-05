@@ -13,24 +13,29 @@ const Navbar = () => {
 
     const navgicaton = [
         {
-            "id": "1",
+            "id": 1,
             "name": "Home",
             "path": "/"
         },
         {
-            "id": "2",
+            "id": 2,
             "name": "About Us",
             "path": "/about"
         },
         {
-            "id": "3",
-            "name": "Adoption List",
+            "id": 3,
+            "name": "Services",
             "path": "/services"
         },
         {
-            "id": "4",
-            "name": "Pages",
-            "path": "/services"
+            "id": 4,
+            "name": "Contact",
+            "path": "/contact"
+        },
+        {
+            "id": 5,
+            "name": "Blog",
+            "path": "/blog"
         },
     ]
 
@@ -57,7 +62,7 @@ const Navbar = () => {
                     <ul className='hidden lg:flex items-center gap-5 text-[16px] font-[400]'>
                         {
                             navgicaton.map((navi) => (
-                                <Link key={navi.id} className={`${pathname == navi.path && "text-[#e76f51] border-b-2 border-[#e76f51]"} hover:text-[#e76f51]`}  href={navi.path}>
+                                <Link key={navi.id} className={`${pathname == navi.path && "text-[#e76f51] border-b-2 border-[#e76f51]"} hover:text-[#e76f51]`} href={navi.path}>
                                     <li className='font-truculenta'>{navi.name}</li>
                                 </Link>
                             ))
