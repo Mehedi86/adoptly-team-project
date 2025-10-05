@@ -122,7 +122,7 @@ const blogCards = () => {
                             <div>
                                 <p className="text-right font-lato text-[#E76F51]">{blog.date}</p>
                             </div>
-                            <h1 className="text-xl font-bold dark:text-[#cfcfcf] font-truculenta">{blog.title}</h1>
+                            <h1 className="text-xl font-bold dark:text-[#cfcfcf] font-lato">{blog.title}</h1>
                             <p className="font-lato text-[#757575]">{blog.description.slice(0, 110)}...</p>
                             <button className="btn w-32 rounded-xl border-0 bg-[#E76F51] text-white">
                                 Read More
