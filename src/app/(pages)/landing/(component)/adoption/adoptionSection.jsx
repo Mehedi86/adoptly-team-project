@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 
+import './adoptionSection.css'
+
 export default function AdoptionSection() {
   // animation bottom-to-top fade-in
   const textVariant = {
@@ -15,10 +17,10 @@ export default function AdoptionSection() {
 
       {/* content */}
       <div
-        className="relative z-10 max-w-7xl mx-auto flex flex-col md:flex-row items-center p-6 md:p-12 bg-cover bg-center rounded-2xl overflow-hidden"
+        className="adoptionImage relative z-10 max-w-7xl mx-auto flex flex-col md:flex-row items-center p-6 md:p-12 bg-cover bg-center rounded-2xl overflow-hidden"
         style={{
-          backgroundImage:
-            "url('https://tebewebe.online/furrescue/wp-content/uploads/sites/98/2024/03/teenager-with-broken-arm-in-cast-and-pet-cat.jpg')",
+          // backgroundImage:
+          //   "url('https://tebewebe.online/furrescue/wp-content/uploads/sites/98/2024/03/teenager-with-broken-arm-in-cast-and-pet-cat.jpg')",
         }}
       >
         {/* play */}
@@ -44,18 +46,18 @@ export default function AdoptionSection() {
           variants={textVariant}
         >
           <motion.p
-            className="text-sm text-orange-400 uppercase tracking-wide mb-2"
+            className="text-sm text-orange-400  uppercase tracking-wide mb-2"
             variants={textVariant}
           >
             Success Stories
           </motion.p>
           <motion.h2
-            className="text-3xl md:text-4xl font-bold leading-snug mb-4"
+            className="text-3xl dark:text-black md:text-4xl font-bold leading-snug mb-4"
             variants={textVariant}
           >
             Choose adoption and become part <br /> of a pet’s happily ever after
           </motion.h2>
-          <motion.p className="text-gray-200 mb-6" variants={textVariant}>
+          <motion.p className="text-gray-200 dark:text-[#000000] mb-6" variants={textVariant}>
             Magna curabitur laoreet mattis dignissim senectus purus finibus gravida.
             Nec rutrum conubia aliquet accumsan curabitur orci mollis consectetur
             nostra diam fames.

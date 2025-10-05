@@ -8,7 +8,7 @@ import Image from 'next/image';
 const SponsorAndDonorSection = () => {
     return (
         <div className='relative mx-10 py-20'>
-            <div className='lg:absolute top-0 z-20 bg-white h-full flex justify-center items-center p-5 lg:w-72'>
+            <div className='lg:absolute top-0 z-20 dark:bg-[#0d1b2a] bg-white h-full flex justify-center items-center p-5 lg:w-72'>
                 <h1 className='text-xl font-semibold font-truculenta'>Our Generous Sponsors and Donors</h1>
             </div>
             <div className='z-10'>

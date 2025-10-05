@@ -6,6 +6,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
 import './HeroSection.css'
+import Link from 'next/link';
 
 const bannerInfo = [
     {
@@ -46,7 +47,9 @@ const HeroSection = () => {
                                 <div className='lg:pl-20 px-5 lg:w-[50%] text-white space-y-5'>
                                     <h2 className='text-4xl lg:text-6xl font-bold font-truculenta'>{banner.title}</h2>
                                     <p className='text-[18px] font-lato text-[#cccccc]'>{banner.subTitle}</p>
-                                    <button className='btn border-0 w-40 bg-[#e76f51] text-white rounded-xl'>Get Started</button>
+                                    <Link href={"/adminDashboard"}>
+                                        <button className='btn border-0 w-40 bg-[#e76f51] text-white rounded-xl'>Get Started</button>
+                                    </Link>
                                 </div>
                             </div>
                         </SwiperSlide>

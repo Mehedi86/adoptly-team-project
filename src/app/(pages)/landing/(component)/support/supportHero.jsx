@@ -29,7 +29,7 @@ export default function SupportHero() {
         viewport={{ once: true, amount: 0.3 }}
       >
         <motion.h1
-          className="text-3xl md:text-5xl font-extrabold text-white leading-snug"
+          className="text-3xl md:text-5xl font-extrabold text-white leading-snug dark:text-black font-truculenta"
           variants={textVariant}
         >
           Your Support, Their Second Chance at a <br />
@@ -37,7 +37,7 @@ export default function SupportHero() {
         </motion.h1>
 
         <motion.p
-          className="text-white/90 mt-4 text-base md:text-lg"
+          className="text-white/90 mt-4 text-base md:text-lg font-lato dark:text-black"
           variants={textVariant}
         >
           Tortor lorem venenatis id donec litora praesent pretium lacus quam.
@@ -47,7 +47,7 @@ export default function SupportHero() {
 
         {/* Buttons */}
         <motion.div className="mt-6 flex justify-center gap-4" variants={textVariant}>
-          <button className="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition">
+          <button className="bg-[#e76f51] hover:bg-opacity-0 hover:outline-2 hover:outline-[#e76f51] text-white font-semibold px-6 py-3 rounded-lg shadow-md transition">
             Donate Now
           </button>
           <button className="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition">

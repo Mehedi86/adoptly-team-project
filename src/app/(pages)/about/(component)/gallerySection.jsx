@@ -19,10 +19,10 @@ const photos = [
 
 const GallerySection = () => {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Heading */}
-        <h2 className="text-2xl text-black sm:text-3xl lg:text-4xl font-bold mb-12">
+        <h2 className="text-2xl text-black dark:text-[#cfcfcf] sm:text-3xl lg:text-4xl font-bold mb-12">
           Our Latest Photos
         </h2>
 

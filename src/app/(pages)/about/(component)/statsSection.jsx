@@ -52,7 +52,7 @@ export default function StatsSection() {
               viewport={{ once: true }}
               className="flex flex-col items-center group"
             >
-              <div className="bg-white w-16 h-16 flex items-center justify-center rounded-full mb-4 shadow-md transform transition-transform duration-300 group-hover:scale-110">
+              <div className="bg-white  w-16 h-16 flex items-center justify-center rounded-full mb-4 shadow-md transform transition-transform duration-300 group-hover:scale-110">
                 {item.icon}
               </div>
               <h3 className="text-3xl font-extrabold">{item.number}</h3>

@@ -56,7 +56,7 @@ export default function BlogSection() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="bg-white rounded-xl shadow-md overflow-hidden"
+            className="bg-white dark:bg-[#201f1f] rounded-xl shadow-md overflow-hidden"
           >
             <Image
               src={blog.img}
@@ -66,11 +66,11 @@ export default function BlogSection() {
               className="w-full h-56 object-cover"
             />
             <div className="p-5">
-              <p className="text-sm text-blue-600 mb-2"><FaCalendarAlt className="inline mr-1" />   {blog.date}</p>
-              <h3 className="text-xl font-semibold mb-2 text-black ">
+              <p className="text-sm text-[#e76f51] mb-2"><FaCalendarAlt className="inline mr-1" />{blog.date}</p>
+              <h3 className="text-xl font-semibold mb-2 text-black dark:text-[#cfcfcf]">
                 {blog.title}
               </h3>
-              <p className="text-gray-600 text-sm">{blog.desc.slice(0, 100)}...</p>
+              <p className="text-gray-600 dark:text-[#bbbbbbd3] text-sm ">{blog.desc.slice(0, 100)}...</p>
             </div>
           </motion.div>
         ))}
