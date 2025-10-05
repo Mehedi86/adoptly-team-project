@@ -66,7 +66,7 @@ export default function BlogSection() {
               className="w-full h-56 object-cover"
             />
             <div className="p-5">
-              <p className="text-sm text-[#e76f51] mb-2"><FaCalendarAlt className="inline mr-1" />   {blog.date}</p>
+              <p className="text-sm text-[#e76f51] mb-2"><FaCalendarAlt className="inline mr-1" />{blog.date}</p>
               <h3 className="text-xl font-semibold mb-2 text-black dark:text-[#cfcfcf]">
                 {blog.title}
               </h3>
