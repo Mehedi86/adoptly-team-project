@@ -37,7 +37,7 @@ const ChooseUs = () => {
   return (
     <section className='w-11/12 mx-auto my-20'>
       <div className='flex items-center justify-center gap-10 flex-col lg:flex-row'>
-        
+
         {/* image */}
         <motion.div
           initial={{ opacity: 0, x: -200 }}
@@ -45,13 +45,13 @@ const ChooseUs = () => {
           className='lg:w-6/12 text-center mx-auto'>
           <Image src={chooseImg1} alt="Choose Us" className='w-full h-auto' />
         </motion.div>
-        
+
         {/* content */}
         <div className='lg:w-6/12 text-center lg:text-left space-y-10'>
-          <h3 className='text-cyan-200 font-semibold text-left'>Why Choose Us?</h3>
-          <h2 className='text-4xl font-bold my-5'>Our team of volunteers is truly committed</h2>
-          <p className='text-gray-300'>
-            Pede efficitur feugiat erat eros interdum neque proin metus fames scelerisque. 
+          <h3 className='text-[#e76f51] font-semibold text-left font-lato'>Why Choose Us?</h3>
+          <h2 className='text-4xl font-bold my-5 font-truculenta'>Our team of volunteers is truly committed</h2>
+          <p className=' dark:text-gray-300 font-lato text-[#363636d3]'>
+            Pede efficitur feugiat erat eros interdum neque proin metus fames scelerisque.
             Odio tristique sollicitudin hac consectetur vivamus venenatis.
           </p>
 
@@ -65,9 +65,9 @@ const ChooseUs = () => {
               className='flex items-center gap-5'
             >
               <div className='bg-[#ff6b6b] rounded-2xl p-4'>{item.icon}</div>
-              <div>
-                <h3 className='text-2xl font-semibold text-left'>{item.title}</h3>
-                <p className='text-xs'>{item.desc}</p>
+              <div className='space-y-1'>
+                <h3 className='text-2xl dark:text-gray-300 font-semibold text-left font-truculenta'>{item.title}</h3>
+                <p className='font-lato dark:text-gray-300 text-[#363636d3]'>{item.desc}</p>
               </div>
             </motion.div>
           ))}

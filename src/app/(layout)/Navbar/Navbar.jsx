@@ -1,15 +1,22 @@
 "use client"
+import useAuth from '@/hooks/useAuth';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa';
 import { IoSearchOutline } from 'react-icons/io5';
+import { MdDarkMode, MdSunny } from 'react-icons/md';
 
 const Navbar = () => {
 
     const [toggle, setToggle] = useState(false)
     const [isSticky, setIsSticky] = useState(false)
     const pathname = usePathname()
+    const [isTheme, setIsTheme] = useState(false);
+    const { user, loading, logoutSystem } = useAuth();
+
+
+    console.log('checking theme', isTheme);
 
     const navgicaton = [
         {
@@ -54,15 +61,33 @@ const Navbar = () => {
         setToggle(!toggle)
     }
 
+    // Toogle dark mode and light
+    useEffect(() => {
+        const savedTheme = localStorage.getItem("theme") || "light";
+        const dark = savedTheme === "dark";
+        setIsTheme(dark);
+        document.documentElement.classList.toggle("dark", dark);
+    }, [])
+
+
+    const handleToggleDarkAndLight = () => {
+        const newTheme = isTheme ? "light" : "dark";
+        console.log("checking newTheme", newTheme);
+        setIsTheme(!isTheme);
+        document.documentElement.classList.toggle("dark", !isTheme);
+        localStorage.setItem("theme", newTheme);
+    }
+
+
     return (
-        <div className={` ${isSticky ? "sticky top-0 z-50 bg-[#ffffffb9] shadow-xl backdrop-blur-lg transition-all duration-300 opacity-100" : "bg-white"}`}>
+        <div className={` ${isSticky ? "sticky top-0 z-50 bg-[#ffffffb9] dark:bg-[#0d1b2aab]  shadow-xl backdrop-blur-lg transition-all duration-300 opacity-100" : "bg-white dark:bg-[#0d1b2a]"}`}>
             <nav className={` z-50 w-full lg:px-32 px-3 flex justify-between py-3 font-truculenta font-[200]`}>
                 <div className='flex items-center gap-20'>
-                    <h1 className='text-3xl'>Adoptly</h1>
+                    <h1 className='text-3xl dark:text-[#cfcfcf]'>Adoptly</h1>
                     <ul className='hidden lg:flex items-center gap-5 text-[16px] font-[400]'>
                         {
                             navgicaton.map((navi) => (
-                                <Link key={navi.id} className={`${pathname == navi.path && "text-[#e76f51] border-b-2 border-[#e76f51]"} hover:text-[#e76f51]`} href={navi.path}>
+                                <Link key={navi.id} className={`${pathname == navi.path ? "text-[#e76f51] dark:text-[#e76f51] border-b-2 border-[#e76f51]" : "dark:text-[#cfcfcf]"} hover:text-[#e76f51]`} href={navi.path}>
                                     <li className='font-truculenta'>{navi.name}</li>
                                 </Link>
                             ))
@@ -70,7 +95,54 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className='flex items-center gap-5 text-[19px]'>
-                    <button className='btn w-40 rounded-xl bg-[#e76f51] text-white'>Donate Now</button>
+                    {/* Toggle dark and light */}
+                    <div>
+                        <label className="swap swap-rotate">
+                            {/* this hidden checkbox controls the state */}
+                            <input
+                                type="checkbox"
+                                checked={isTheme}
+                                onClick={handleToggleDarkAndLight}
+                                readOnly
+                                className="theme-controller text-white" value="synthwave" />
+                            {/* moon icon */}
+                            <MdSunny
+                                className="text-[#ffa700] dark:text-[#ffa700]  swap-off h-10 w-10 fill-current"
+                            />
+                            {/* sun icon */}
+                            <MdDarkMode
+                                className="text-white  dark:text-white swap-on h-10 w-10 fill-current"
+                            />
+                        </label>
+                    </div>
+                    {
+                        user ? (
+                            <div className="dropdown dropdown-end">
+                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                    <div className="w-14 rounded-full">
+                                        <img
+                                            alt="Tailwind CSS Navbar component"
+                                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                    </div>
+                                </div>
+                                <ul
+                                    tabIndex={0}
+                                    className="menu menu-md dropdown-content bg-white dark:bg-[#0d1b2a] text-black dark:text-[#cfcfcf]  rounded-box z-1 mt-3 w-52 p-2 shadow">
+                                    <li className=''>
+                                        <a className="justify-between">
+                                            Profile
+                                        </a>
+                                    </li>
+                                    <li><a>Settings</a></li>
+                                    <li onClick={logoutSystem}><a>Logout</a></li>
+                                </ul>
+                            </div>
+                        ) : (
+                            <Link href={"/login"}>
+                                <button className='btn w-20 focus:outline-0 border-0 rounded-sm bg-[#e76f51] text-white'>Login</button>
+                            </Link>
+                        )
+                    }
                     <FaBars onClick={handleToggle} className='lg:hidden' />
                 </div>
                 <ul className={`z-50 absolute left-0 p-5 lg:hidden  bg-[#e76f51ea] backdrop-blur-sm text-white w-full flex flex-col  gap-5 text-[19px] font-[300] translate-y-14 duration-700  ${toggle ? "translate-x-0" : "-translate-x-full"}`}>

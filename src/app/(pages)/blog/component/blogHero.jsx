@@ -16,7 +16,7 @@ const blogHero = ({title}) => {
             {/* Overlay */}
             <div className="absolute inset-0  bg-black/40"></div>
             <div className="relative z-10 container mx-auto px-4">
-                <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                <h1 className=" text-4xl md:text-5xl font-extrabold text-white mb-4">
                     {title}
                 </h1>
                 <nav className="flex flex-wrap gap-2 items-center text-sm space-x-2 ">

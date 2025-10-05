@@ -23,6 +23,7 @@ export default function RegisterPage() {
         // save user to database
         createUser(userInfo);
         toast.success("User registered successfully!");
+        
       });
   }
   return (
