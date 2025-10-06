@@ -133,3 +133,20 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+
+
+/* LoginBg */
+
+.bg-login {
+  background-image: linear-gradient(to left, rgba(0, 0, 0, 0.151), rgba(0, 0, 0, 0.274), rgba(0, 0, 0, 0.295)), url(/images/login-&-registration-bg/loginBg.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.bg-register {
+  background-image: linear-gradient(to left, rgba(0, 0, 0, 0.151), rgba(0, 0, 0, 0.274), rgba(0, 0, 0, 0.295)), url(/images/login-&-registration-bg/registerBg.png);
+  background-size: cover;
+  background-position: left;
+  background-repeat: no-repeat;
+}
