@@ -33,10 +33,10 @@ export default function RegisterPage() {
       });
   }
 
-  const signInWithGoogle = () => {
-    googleAuthSystem()
-      .then((result) => {
-        const loggedUser = result.user;
+  const signInWithGoogle = async () => {
+    try {
+      const result = await googleAuthSystem();
+       const loggedUser = result.user;
         console.log(loggedUser);
         const userInfo = {
           name: loggedUser.displayName,
@@ -44,11 +44,15 @@ export default function RegisterPage() {
           photo: loggedUser.photoURL,
           role: "user",
         }
-        createUser(userInfo);
+        await createUser(userInfo);
         router.push(location);
         toast.success("Login successful");
-      });
-  }
+    } catch (error) {
+      console.error("Google sign-in failed:", error);
+      toast.error("This email already exists into Database.");
+      router.push(location);
+    }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-register">
@@ -84,7 +88,7 @@ export default function RegisterPage() {
         </div>
         {/* Google login */}
         <div className="mt-4 *:flex *:justify-center">
-          <Button onClick={() => signInWithGoogle()} className="w-full rounded-none py-6 bg-black text-white border-none text-lg" >
+          <Button onClick={() => signInWithGoogle()} className="w-full rounded-none py-6 bg-black text-white border-none text-lg cursor-pointer" >
             <FaGoogle size={24} /> Login with Google
           </Button>
 
