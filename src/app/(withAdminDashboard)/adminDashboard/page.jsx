@@ -2,8 +2,10 @@
 
 import { adminDataFetching } from "@/hooks/adminDataFetching/admin";
 import { motion } from "framer-motion";
-import {FaUser} from "react-icons/fa"
-//  Animation Variants (Reusable)
+import { FaUser, FaPaw,FaHandshake } from "react-icons/fa";
+import { MdPostAdd } from "react-icons/md";
+
+// 🌀 Animation Variants (Reusable)
 const cardVariants = {
   hidden: { opacity: 0, y: 30, scale: 0.9 },
   visible: {
@@ -35,6 +37,9 @@ const lineVariants = {
 // 🧠 Component
 const AdminDashboard = () => {
   const { data: allUsers, isLoading, error } = adminDataFetching.useUsers();
+  const { data: allPets } = adminDataFetching.useAllPets();
+  const { data: allPost } = adminDataFetching.useAllPost();
+
 
   if (isLoading)
     return (
@@ -47,25 +52,26 @@ const AdminDashboard = () => {
     );
 
   const totalUsers = allUsers?.length || 0;
+  const totalPets = allPets?.data?.length || 0;
+  const totalPosts = allPost?.length || 0;
 
   return (
-    <section className="p-8 grid-cols-3">
-      {/* alluser */}
-       <div className="flex justify-center items-center  ">
+    <section className="p-8 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+      {/* 🧍‍♂️ All Users Card */}
       <motion.div
-        className="bg-orange-300 rounded-3xl shadow-xl p-10 text-center w-72 hover:shadow-2xl transition"
+        className="bg-orange-300 rounded-3xl shadow-xl p-10 text-center w-72 mx-auto hover:shadow-2xl transition"
         variants={cardVariants}
         initial="hidden"
         animate="visible"
       >
         <motion.h1
-          className="text-3xl font-bold flex items-center justify-center gap-1 text-center  mb-2"
+          className="text-3xl font-bold flex items-center justify-center gap-2 mb-2"
           variants={numberVariants}
         >
-           <span><FaUser /></span> {totalUsers}
+          <FaUser /> {totalUsers}
         </motion.h1>
 
-        <p className=" text-lg font-medium text-muted-foreground">
+        <p className="text-lg font-medium text-muted-foreground">
           Total Registered Users
         </p>
 
@@ -74,14 +80,79 @@ const AdminDashboard = () => {
           variants={lineVariants}
         />
       </motion.div>
-      </div>
-      
-      {/* allPets */}
-      <div></div>
 
-      {/* allPost */}
-      <div></div>
-   </section>
+      {/*  All Pets Card */}
+      <motion.div
+        className="bg-green-300 rounded-3xl shadow-xl p-10 text-center w-72 mx-auto hover:shadow-2xl transition"
+        variants={cardVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.h1
+          className="text-3xl font-bold flex items-center justify-center gap-2 mb-2"
+          variants={numberVariants}
+        >
+          <FaPaw /> {totalPets}
+        </motion.h1>
+
+        <p className="text-lg font-medium text-muted-foreground">
+          Total Pets Listed
+        </p>
+
+        <motion.div
+          className="mt-5 w-16 h-1 bg-black mx-auto rounded-full"
+          variants={lineVariants}
+        />
+      </motion.div>
+
+      {/* 🤝 Total Adoptions */}
+      <motion.div
+        className="bg-blue-300 rounded-3xl shadow-xl p-10 text-center w-72 mx-auto hover:shadow-2xl transition"
+        variants={cardVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.h1
+          className="text-3xl font-bold flex items-center justify-center gap-2 mb-2"
+          variants={numberVariants}
+        >
+          <FaHandshake /> 10
+        </motion.h1>
+        <p className="text-lg font-medium text-muted-foreground">
+          Total Successful Adoptions
+        </p>
+        <motion.div
+          className="mt-5 w-16 h-1 bg-black mx-auto rounded-full"
+          variants={lineVariants}
+        />
+      </motion.div>
+
+      {/*  Future Section Placeholder */}
+      <motion.div
+        className="bg-blue-300 rounded-3xl shadow-xl p-10 text-center w-72 mx-auto hover:shadow-2xl transition"
+        variants={cardVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.h1
+          className="text-3xl font-bold flex items-center justify-center gap-2 mb-2"
+          variants={numberVariants}
+        >
+          <span><MdPostAdd/></span>{totalPosts}
+        </motion.h1>
+
+        <p className="text-lg font-medium text-muted-foreground">
+          Total Posts 
+        </p>
+
+        <motion.div
+          className="mt-5 w-16 h-1 bg-black mx-auto rounded-full"
+          variants={lineVariants}
+        />
+      </motion.div>
+
+
+    </section>
   );
 };
 

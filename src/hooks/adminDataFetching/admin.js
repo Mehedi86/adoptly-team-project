@@ -11,6 +11,24 @@ const useUsers = () => {
   });
 };
 
+const useAllPets = () => {
+  return useQuery({
+    queryKey: ['allPets'],
+    queryFn: adminQueries.getAllPets
+  });
+};
+
+const useAllPost = () => {
+  return useQuery({
+    queryKey: ['allPost'],
+    queryFn: adminQueries.getAllPost,
+    
+  })
+}
+
+
 export const adminDataFetching = {
   useUsers,
+  useAllPets,
+  useAllPost
 };
