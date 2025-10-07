@@ -1,7 +1,11 @@
 'use client';
 import { Home, Inbox, Calendar, Search, Settings, } from "lucide-react"
 import { LuLayoutGrid } from "react-icons/lu";
-import { BsFilePost } from "react-icons/bs";
+import { BsFilePost, BsListCheck } from "react-icons/bs";
+import { ImProfile } from "react-icons/im";
+import { FaRegListAlt } from "react-icons/fa";
+
+
 import {
   Sidebar,
   SidebarContent,
@@ -23,19 +27,24 @@ const items = [
     icon: LuLayoutGrid,
   },
   {
+    title: "Profile",
+    url: "/userDashboard/user_profile",
+    icon: ImProfile,
+  },
+  {
     title: "Manage Post",
-    url: "#",
+    url: "/userDashboard/manage_post",
     icon: BsFilePost,
   },
   {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
+    title: "Your Request",
+    url: "/userDashboard/request",
+    icon: FaRegListAlt,
   },
   {
-    title: "Search",
-    url: "#",
-    icon: Search,
+    title: "Already Adopted",
+    url: "/userDashboard/already_adopted",
+    icon: BsListCheck,
   },
   {
     title: "Settings",
@@ -54,10 +63,11 @@ const UserSidebar = () => {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+
+                  <SidebarMenuButton asChild >
                     <Link href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
+                      <item.icon className="text-2xl" />
+                      <span className="">{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
