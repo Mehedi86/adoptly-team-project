@@ -8,6 +8,7 @@ import CareRequirements from "./(component)/requirements/careRequirements";
 import SupportHero from "./(component)/support/supportHero";
 import AboutSection from "./AboutSection/AboutSection";
 import HeroSection from "./HeroSection/HeroSection";
+import OurOffer from "./offer/OurOffer";
 import ServiceSection from "./ServiceSection/ServiceSection";
 import SponsorAndDonorSection from "./SponsorAndDonorSection/SponsorAndDonorSection";
 
@@ -29,6 +30,7 @@ export default function Landing() {
       <SupportHero />
       <CareRequirements />
 
+      <OurOffer />
       <FunFact />
       <ChooseUs />
       <BlogSection />
