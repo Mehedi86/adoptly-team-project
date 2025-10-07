@@ -13,7 +13,6 @@ import ServiceSection from "./ServiceSection/ServiceSection";
 import SponsorAndDonorSection from "./SponsorAndDonorSection/SponsorAndDonorSection";
 
 
-
 export default function Landing() {
   return (
     <div className="container mx-auto">
