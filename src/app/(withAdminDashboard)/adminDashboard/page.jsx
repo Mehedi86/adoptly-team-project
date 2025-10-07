@@ -59,7 +59,7 @@ const AdminDashboard = () => {
   const totalAdoption = allAdoptionPets?.pets?.length || 0;
 
   return (
-    <section className="p-8 grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+    <section className="p-8 grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       {/* 🧍‍♂️ All Users Card */}
       <motion.div
         className="bg-orange-300 rounded-3xl shadow-xl p-10 text-center  mx-auto hover:shadow-2xl transition"
