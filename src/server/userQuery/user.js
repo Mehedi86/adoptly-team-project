@@ -1,4 +1,4 @@
-"use server";
+// "use server";
 
 import { axiosPublic } from "@/lib/axios/axios";
 
@@ -24,4 +24,16 @@ export const createUser = async (userInfo) => {
     console.error("Error creating user:", error);
     throw error;
   }
+
+
+};
+
+const getAllOffers = async() => {
+  const {data} = await axiosPublic.get("/offers")
+  return data;
+}
+
+
+export const usersQueries = {
+  getAllOffers
 };

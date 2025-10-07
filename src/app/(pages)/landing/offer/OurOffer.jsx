@@ -1,24 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { userDataFetching } from "@/hooks/userDataFetching/user";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import axios from "axios";
+
 
 const OurOffer = () => {
-  const [pets, setPets] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get("https://adoptly-team-project-backend.vercel.app/offers")
-      .then((res) => {
-        console.log(res.data);
-      })
-  }, []);
+const {data: offers} = userDataFetching.useAllOffers();
+console.log(offers);
+
+  
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-      {pets.map((pet, index) => (
+      {/* {offers.map((pet, index) => (
         <motion.div
           key={pet._id || index}
           initial={{ opacity: 0, y: 80 }}
@@ -73,7 +69,8 @@ const OurOffer = () => {
             </svg>
           </div>
         </motion.div>
-      ))}
+      ))} */}
+      
     </div>
   );
 };
