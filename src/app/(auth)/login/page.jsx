@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form"
 import { FaGoogle } from "react-icons/fa"
 import toast from "react-hot-toast";
-import { createUser } from "@/server/user";
+import { createUser } from "@/server/userQuery/user";
 export default function LoginPage() {
   const { userLoginSystem, googleAuthSystem } = useAuth();
   const searchParams = useSearchParams();

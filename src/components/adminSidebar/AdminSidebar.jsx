@@ -1,5 +1,5 @@
 'use client';
-import { Home, Inbox, Calendar, Search, Settings } from "lucide-react"
+import { Home,HousePlus, Inbox, Calendar, Search, Settings } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -39,6 +39,11 @@ const items = [
     url: "#",
     icon: Settings,
   },
+  {
+    title: "Main Home",
+    url: "/",
+    icon: HousePlus,
+  },
 ]
 
 const AdminSidebar = () => {
@@ -61,8 +66,10 @@ const AdminSidebar = () => {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
+  
         </SidebarGroup>
       </SidebarContent>
+
     </Sidebar>
   );
 };

@@ -4,7 +4,7 @@
 export const createUser = async (userInfo) => {
   // console.log("Creating user with info:", userInfo);
   try {
-    const response = await fetch(`${process.env.BASE_URL}/user`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

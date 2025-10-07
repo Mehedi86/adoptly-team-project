@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import useAuth from "@/hooks/useAuth";
-import { createUser } from "@/server/user";
+import { createUser } from "@/server/userQuery/user";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form"
