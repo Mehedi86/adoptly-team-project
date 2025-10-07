@@ -26,21 +26,26 @@ const Navbar = () => {
         },
         {
             "id": 2,
+            "name": "Adoption List",
+            "path": "/adoption_list"
+        },
+        {
+            "id": 3,
             "name": "About Us",
             "path": "/about"
         },
         {
-            "id": 3,
+            "id": 4,
             "name": "Services",
             "path": "/services"
         },
         {
-            "id": 4,
+            "id": 5,
             "name": "Contact",
             "path": "/contact"
         },
         {
-            "id": 5,
+            "id": 6,
             "name": "Blog",
             "path": "/blog"
         },
