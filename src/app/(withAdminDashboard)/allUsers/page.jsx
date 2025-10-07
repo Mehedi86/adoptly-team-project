@@ -16,6 +16,10 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
+import { userDataFetching } from '@/hooks/userDataFetching/user';
+import { axiosPublic } from '@/lib/axios/axios';
+import useAuth from '@/hooks/useAuth';
+import { cn } from '@/lib/utils';
 
 // 🌀 Animation Variants
 const containerVariants = {
@@ -32,7 +36,9 @@ const rowVariants = {
 };
 
 const AllUserPage = () => {
-  const { data: allUsers, isLoading, error } = adminDataFetching.useUsers();
+  const { data: allUsers, isLoading, error ,refetch} = adminDataFetching.useUsers();
+  const { user } = useAuth();
+  console.log(user.email)
 
   if (isLoading)
     return (
@@ -48,8 +54,10 @@ const AllUserPage = () => {
       </p>
     );
   
-  const handleMakeAdmin = () => {
-    
+  const handleMakeAdmin = async (email) => {
+    const { data } = await axiosPublic.patch(`/user/admin/${email}`)
+    console.log(data?.data)
+    refetch();
   }
 
   return (
@@ -120,9 +128,9 @@ const AllUserPage = () => {
                   {user.email || 'N/A'}
                 </TableCell>
 
-                <TableCell className="capitalize text-gray-700">
+                <TableCell className="capitalize text-gray-700 flex items-center gap-1">
                  
-                  <Button onclick={()=>handleMakeAdmin()} className={'cursor-pointer'}> {user.role || 'user'}</Button>
+               <Button onClick={()=>handleMakeAdmin(user.email)} className={cn('cursor-pointer ')}>   <FaUser size={20}/> {user.role || 'user'}</Button>
                 </TableCell>
 
                 <TableCell className="text-center">
