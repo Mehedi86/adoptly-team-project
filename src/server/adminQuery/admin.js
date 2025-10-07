@@ -23,7 +23,18 @@ const getAllUsers = async () => {
 };
 
 const getAllPets = async () => {
-  const {data} = await axiosPublic.get('')
+  const { data } = await axiosPublic.get('/pets');
+  return await data;
 }
 
-export const adminQueries = { getAllUsers };
+
+const getAllPost = async () => {
+  const { data } = await axiosPublic.get('/posts');
+  return data;
+}
+
+export const adminQueries = {
+  getAllUsers,
+  getAllPets,
+  getAllPost
+};

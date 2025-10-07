@@ -1,7 +1,7 @@
 import { axiosPublic } from "@/lib/axios/axios";
 
- const useaxiosPublic = () => {
+ const useAxiosPublic = () => {
   return axiosPublic
 } 
 
-export default useaxiosPublic;
+export default useAxiosPublic;
