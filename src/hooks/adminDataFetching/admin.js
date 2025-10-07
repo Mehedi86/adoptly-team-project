@@ -27,8 +27,17 @@ const useAllPost = () => {
 }
 
 
+//how many adoption
+const useAllAdoptionPets = () => {
+  return useQuery({
+    queryKey: ['allAdoption'],
+    queryFn:adminQueries.getAllAdoption,
+  })
+}
+
 export const adminDataFetching = {
   useUsers,
   useAllPets,
-  useAllPost
+  useAllPost,
+  useAllAdoptionPets
 };
