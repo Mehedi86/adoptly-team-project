@@ -33,8 +33,16 @@ const getAllPost = async () => {
   return data;
 }
 
+
+//how many adoption
+const getAllAdoption = async () => {
+  const { data } = await axiosPublic.get('/all-adoption');
+  return data;
+}
+
 export const adminQueries = {
   getAllUsers,
   getAllPets,
-  getAllPost
+  getAllPost,
+  getAllAdoption
 };

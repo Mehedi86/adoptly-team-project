@@ -39,6 +39,8 @@ const AdminDashboard = () => {
   const { data: allUsers, isLoading, error } = adminDataFetching.useUsers();
   const { data: allPets } = adminDataFetching.useAllPets();
   const { data: allPost } = adminDataFetching.useAllPost();
+  const { data: allAdoptionPets } = adminDataFetching.useAllAdoptionPets();
+  console.log(allAdoptionPets)
 
 
   if (isLoading)
@@ -54,12 +56,13 @@ const AdminDashboard = () => {
   const totalUsers = allUsers?.length || 0;
   const totalPets = allPets?.data?.length || 0;
   const totalPosts = allPost?.length || 0;
+  const totalAdoption = allAdoptionPets?.pets?.length || 0;
 
   return (
-    <section className="p-8 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+    <section className="p-8 grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       {/* 🧍‍♂️ All Users Card */}
       <motion.div
-        className="bg-orange-300 rounded-3xl shadow-xl p-10 text-center w-72 mx-auto hover:shadow-2xl transition"
+        className="bg-orange-300 rounded-3xl shadow-xl p-10 text-center  mx-auto hover:shadow-2xl transition"
         variants={cardVariants}
         initial="hidden"
         animate="visible"
@@ -83,7 +86,7 @@ const AdminDashboard = () => {
 
       {/*  All Pets Card */}
       <motion.div
-        className="bg-green-300 rounded-3xl shadow-xl p-10 text-center w-72 mx-auto hover:shadow-2xl transition"
+        className="bg-green-300 rounded-3xl shadow-xl p-10 text-center  mx-auto hover:shadow-2xl transition"
         variants={cardVariants}
         initial="hidden"
         animate="visible"
@@ -107,7 +110,7 @@ const AdminDashboard = () => {
 
       {/* 🤝 Total Adoptions */}
       <motion.div
-        className="bg-blue-300 rounded-3xl shadow-xl p-10 text-center w-72 mx-auto hover:shadow-2xl transition"
+        className="bg-blue-300 rounded-3xl shadow-xl p-10 text-center  mx-auto hover:shadow-2xl transition"
         variants={cardVariants}
         initial="hidden"
         animate="visible"
@@ -116,7 +119,7 @@ const AdminDashboard = () => {
           className="text-3xl font-bold flex items-center justify-center gap-2 mb-2"
           variants={numberVariants}
         >
-          <FaHandshake /> 10
+          <FaHandshake /> {totalAdoption}
         </motion.h1>
         <p className="text-lg font-medium text-muted-foreground">
           Total Successful Adoptions
@@ -129,7 +132,7 @@ const AdminDashboard = () => {
 
       {/*  Future Section Placeholder */}
       <motion.div
-        className="bg-blue-300 rounded-3xl shadow-xl p-10 text-center w-72 mx-auto hover:shadow-2xl transition"
+        className="bg-blue-300 rounded-3xl shadow-xl p-10 text-center w-52  mx-auto hover:shadow-2xl transition"
         variants={cardVariants}
         initial="hidden"
         animate="visible"

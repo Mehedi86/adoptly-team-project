@@ -1,5 +1,5 @@
 'use client';
-import { Home,HousePlus, Inbox, Calendar, Search, Settings } from "lucide-react"
+import { Home,HousePlus, User, Calendar, Search, Settings } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -20,9 +20,9 @@ const items = [
     icon: Home,
   },
   {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
+    title: "All Users",
+    url: "/allUsers",
+    icon: User,
   },
   {
     title: "Calendar",
