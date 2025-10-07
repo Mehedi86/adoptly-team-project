@@ -46,6 +46,7 @@ export default function LoginPage() {
       // toast.success(res.message);
       // }
       
+      
       router.push(location);
       toast.success("Login successful");
 
