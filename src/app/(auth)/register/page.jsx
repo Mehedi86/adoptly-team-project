@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import useAuth from "@/hooks/useAuth";
 import { createUser } from "@/server/userQuery/user";
@@ -12,15 +12,22 @@ import { FaGoogle } from "react-icons/fa";
 
 // 🧩 Inner component (we wrap with Suspense outside)
 function RegisterContent() {
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
+  // const location = searchParams.get("redirect") || "/";
+   const [location, setLocation] = useState("/");
   const router = useRouter();
-  const location = searchParams.get("redirect") || "/";
   const { userRegistrationSystem, googleAuthSystem } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setLocation(params.get("redirect") || "/");
+  }, []);
 
   // 🧠 Handle email-password registration
   const onSubmit = async (data) => {
@@ -62,7 +69,7 @@ function RegisterContent() {
       router.push(location);
     } catch (error) {
       console.error("Google sign-in failed:", error);
-      toast.error("This email already exists in the database.");
+      // toast.error("This email already exists in the database.");
       router.push(location);
     }
   };
