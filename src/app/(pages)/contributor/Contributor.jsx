@@ -8,10 +8,10 @@ const users = [
     email: "kalidashodekare14@gmail.com",
     role: "Frontend Developer",
     country: "Bangladesh",
-    img: "/team/kalidash",
+    img: "/team/kalidash.webp",
     linkedin: "https://www.linkedin.com/in/kalidash",
-    github: "https://github.com/kalidash",
-    portfolio: "https://kalidash.dev"
+    github: "https://github.com/kalidashodekare14",
+    portfolio: "https://dev-kalidash.vercel.app"
   },
   {
     id: 2,
@@ -20,9 +20,9 @@ const users = [
     role: "Backend Developer",
     country: "Bangladesh",
     img: "/team/sarmin.webp",
-    linkedin: "https://www.linkedin.com/in/sharminreka",
-    github: "https://github.com/sharminreka",
-    portfolio: "https://sharminreka.dev"
+    linkedin: "https://www.linkedin.com/in/sharmin-rika-2b17a42b4",
+    github: "https://github.com/Rika4698",
+    portfolio: "https://my-portfolio-df10f.web.app"
   },
   {
     id: 3,
@@ -38,24 +38,24 @@ const users = [
   {
     id: 4,
     name: "Jubayer Ahmed",
-    email: "example@gmail.com",
+    email: "jubayerahmed2462@gmail.com",
     role: "Frontend Developer",
     country: "Bangladesh",
-    img: "/team/jubayer.jpg",
-    linkedin: "https://www.linkedin.com/in/jubayer",
-    github: "https://github.com/jubayer",
-    portfolio: "https://jubayer.dev"
+    img: "/team/jubayer.webp",
+    linkedin: "https://www.linkedin.com/in/jubayer-ahmed-86224521a",
+    github: "https://github.com/jubayer718",
+    portfolio: "https://next-dev-portfolio-two.vercel.app"
   },
   {
     id: 5,
-    name: "ABmehedi",
-    email: "example@gmail.com",
+    name: "Md. Abdullah Al Mehedi",
+    email: "abdullahalmehedi86@gmail.com",
     role: "Backend Developer",
     country: "Bangladesh",
-    img: "/team/mehedi.jpg",
-    linkedin: "https://www.linkedin.com/in/abmehedi",
-    github: "https://github.com/abmehedi",
-    portfolio: "https://abmehedi.dev"
+    img: "/team/mehedi.webp",
+    linkedin: "https://www.linkedin.com/in/mahdi866",
+    github: "https://github.com/Mehedi86",
+    portfolio: "https://fantastic-sundae-81ca48.netlify.app"
   }
 ];
 
