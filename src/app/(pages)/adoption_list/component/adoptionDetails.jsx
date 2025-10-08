@@ -3,11 +3,18 @@ import useAxiosPublic from '@/hooks/axiosPublic/useAxiosPublic';
 import UseBanner from '@/hooks/useBanner/UseBanner';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
-import React from 'react';
+import 'react-responsive-modal/styles.css';
+import { Modal } from 'react-responsive-modal';
+import { useState } from 'react';
 
 const AdoptionDetails = ({ id }) => {
 
-    const axiosPublic = useAxiosPublic()
+    const axiosPublic = useAxiosPublic();
+
+    // Modal
+    const [open, setOpen] = useState(false);
+    const onOpenModal = () => setOpen(true);
+    const onCloseModal = () => setOpen(false);
 
     const { data: singleAdoption, refetch, isLoading: loading } = useQuery({
         queryKey: ["singleAdoption"],
@@ -17,7 +24,14 @@ const AdoptionDetails = ({ id }) => {
         }
     })
 
-    console.log('checking singel data', singleAdoption);
+    const { data: userData, refetch: userRefetch, isLoading: userLoading } = useQuery({
+        queryKey: ["singleAdoption"],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/pets/${id}`);
+            return res.data.data
+        }
+    })
+
 
 
     return (
@@ -68,10 +82,33 @@ const AdoptionDetails = ({ id }) => {
                 <div className='my-10 space-y-2'>
                     <h1 className='text-4xl font-bold'>About Me</h1>
                     <p className='text-[#161616bb] dark:text-[#cfcfcf]'>{singleAdoption?.description}</p>
-                    <button className='btn bg-[#E76F51] border-0 rounded-xl w-32'>Adopt Me</button>
+                    <button onClick={onOpenModal} className='btn bg-[#E76F51] border-0 rounded-xl w-32'>Adopt Me</button>
                 </div>
             </div>
-
+            <Modal open={open} onClose={onCloseModal} center>
+                <div className='space-y-2'>
+                    <p className='text-xl my-5'>Please provide information</p>
+                    <div>
+                        <label htmlFor="">Email</label>
+                        <input className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your email' type="text" />
+                    </div>
+                    <div>
+                        <label htmlFor="">Phone Number</label>
+                        <input className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your number' type="text" />
+                    </div>
+                    <div>
+                        <label htmlFor="">Address</label>
+                        <input className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your address' type="text" />
+                    </div>
+                    <div>
+                        <label htmlFor="">Quantity</label>
+                        <input className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your queantity' type="text" />
+                    </div>
+                    <div className='text-center my-5'>
+                        <button className='btn text-center border-0 bg-[#e76f51] text-white'>Submit</button>
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 };

@@ -3,13 +3,15 @@ import useAxiosPublic from '@/hooks/axiosPublic/useAxiosPublic';
 import useAuth from '@/hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 
 const userProfile = () => {
 
+    const [havePet, setHavePet] = useState(null);
+    const [isDescription, setIsDescription] = useState("")
     const [openPersonalInfo, setOpenPersonalInfo] = useState(false);
     const [openAddressInfo, setOpenAddressInfo] = useState(false);
     const { user } = useAuth();
@@ -33,6 +35,9 @@ const userProfile = () => {
     console.log('checking data', userData);
 
 
+    useEffect(() => {
+        setHavePet(userData?.isHavePets)
+    }, [userData?.isHavePets])
 
     const {
         register: register1,
@@ -55,6 +60,21 @@ const userProfile = () => {
     // Address Submit form
     const onSubmit2 = async (data) => {
         console.log(data)
+        const otherInfo = {
+            address: data.address,
+            isHavePets: havePet,
+            currentPetsQuantity: data.currentPetsQuantity,
+            preferredPetType: data.preferredPetType,
+            aboutUser: isDescription
+        }
+
+        const res = await axiosPublic.put(`/user/${user?.email}`, otherInfo)
+        if (res.status === 200) {
+            refetch()
+            onCloseAddModal()
+        }
+
+        console.log('checking other information', otherInfo);
     }
 
 
@@ -87,14 +107,14 @@ const userProfile = () => {
                         <h3 className='text-[#686868]'>Email</h3>
                         <p>{userData?.email ? userData?.email : "N/A"}</p>
                     </div>
-                    <div className='py-5 space-y-1'>
+                    {/* <div className='py-5 space-y-1'>
                         <h3 className='text-[#686868]'>Phone</h3>
                         <p>{userData?.name ? userData?.name : "N/A"}</p>
                     </div>
                     <div className='py-5 space-y-1'>
                         <h3 className='text-[#686868]'>Date of birth</h3>
                         <p>01/05/2000</p>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div className='border my-2'>
@@ -108,12 +128,20 @@ const userProfile = () => {
                         <p>{userData?.address ? userData?.address : "N/A"}</p>
                     </div>
                     <div className='py-5 space-y-1'>
-                        <h3 className='text-[#686868]'>City</h3>
-                        <p>Dinajpur</p>
+                        <h3 className='text-[#686868]'>Your have pets</h3>
+                        <p>{userData?.isHavePets ? "Yes" : "No" || "N/A"}</p>
                     </div>
                     <div className='py-5 space-y-1'>
-                        <h3 className='text-[#686868]'>Post Code</h3>
-                        <p>5100</p>
+                        <h3 className='text-[#686868]'>How many pets are there</h3>
+                        <p>{userData?.currentPetsQuantity || "N/A"}</p>
+                    </div>
+                    <div className='py-5 space-y-1'>
+                        <h3 className='text-[#686868]'>Which animal do you like</h3>
+                        <p>{userData?.preferredPetType || "N/A"}</p>
+                    </div>
+                    <div className='py-5 space-y-1'>
+                        <h3 className='text-[#686868]'>Your About</h3>
+                        <p>{userData?.aboutUser || "N/A"}</p>
                     </div>
                 </div>
             </div>
@@ -143,16 +171,33 @@ const userProfile = () => {
                 <form onSubmit={handleSubmit2(onSubmit2)} className='space-y-2'>
                     <p className='font-semibold'>Address Info Update</p>
                     <div>
-                        <label htmlFor="">Country</label>
-                        <input {...register2("country", { required: true })} className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your Country' type="text" />
+                        <label htmlFor="">Address</label>
+                        <input {...register2("address", { required: true })} defaultValue={userData?.address} className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your address' type="text" />
                     </div>
                     <div>
-                        <label htmlFor="">City</label>
-                        <input {...register2("city", { required: true })} className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your City' type="text" />
+                        <label htmlFor="">How many pets are there?</label>
+                        <div className='flex items-center gap-5 my-2'>
+                            <div className='flex items-center gap-2'>
+                                <p>Yes</p>
+                                <input onClick={() => setHavePet(true)} checked={havePet} type="checkbox" className="checkbox border-2 border-[#bbb] checkbox-neutral" />
+                            </div>
+                            <div className='flex items-center gap-2'>
+                                <p>No</p>
+                                <input onClick={() => setHavePet(false)} checked={!havePet} type="checkbox" className="checkbox border-2 border-[#bbb] checkbox-neutral" />
+                            </div>
+                        </div>
                     </div>
                     <div>
-                        <label htmlFor="">Post Code</label>
-                        <input {...register2("post_code", { required: true })} className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your post code' type="text" />
+                        <label htmlFor="">How many pets are there</label>
+                        <input {...register2("currentPetsQuantity", { required: true })} defaultValue={userData?.currentPetsQuantity} className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your quantity' type="text" />
+                    </div>
+                    <div>
+                        <label htmlFor="">Which animal do you like</label>
+                        <input {...register2("preferredPetType", { required: true })} defaultValue={userData?.preferredPetType} className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your animal' type="text" />
+                    </div>
+                    <div>
+                        <label htmlFor="">Your About</label>
+                        <textarea onChange={(e) => setIsDescription(e.target.value)} defaultValue={userData?.aboutUser} className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your about' type="text" />
                     </div>
                     <div className='text-center'>
                         <button className='btn text-center border-0 bg-[#e76f51] text-white'>Submit</button>
