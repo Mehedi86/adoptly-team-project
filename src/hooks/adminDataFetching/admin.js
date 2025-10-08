@@ -11,6 +11,34 @@ const useUsers = () => {
   });
 };
 
+const useAllPets = () => {
+  return useQuery({
+    queryKey: ['allPets'],
+    queryFn: adminQueries.getAllPets
+  });
+};
+
+const useAllPost = () => {
+  return useQuery({
+    queryKey: ['allPost'],
+    queryFn: adminQueries.getAllPost,
+    
+  })
+}
+
+
+//how many adoption
+const useAllAdoptionPets = () => {
+  return useQuery({
+    queryKey: ['allAdoption'],
+    queryFn:adminQueries.getAllAdoption,
+  })
+}
+
+
 export const adminDataFetching = {
   useUsers,
+  useAllPets,
+  useAllPost,
+  useAllAdoptionPets
 };

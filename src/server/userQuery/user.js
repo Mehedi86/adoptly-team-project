@@ -17,7 +17,7 @@ export const createUser = async (userInfo) => {
     //   throw new Error("Failed to create user");
     // }
 
-    const { data } = await axiosPublic.post('/user', userInfo)
+    const {data} = await axiosPublic.post('/user', userInfo)
 
     return await data;
   } catch (error) {
@@ -25,3 +25,5 @@ export const createUser = async (userInfo) => {
     throw error;
   }
 };
+
+

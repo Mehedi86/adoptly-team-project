@@ -1,7 +1,7 @@
 // server/adminQueries.js
 // "use server";
 
-import { axiosPUblic } from "@/lib/axios/axios";
+import { axiosPublic } from "@/lib/axios/axios";
 
 const getAllUsers = async () => {
   try {
@@ -13,7 +13,7 @@ const getAllUsers = async () => {
     //   cache: "no-store",
     // });
 
-    const { data } = await axiosPUblic.get('/users');
+    const { data } = await axiosPublic.get('/users');
     // if (!res.ok) throw new Error("Failed to fetch users");
     return await data;
   } catch (error) {
@@ -22,4 +22,32 @@ const getAllUsers = async () => {
   }
 };
 
-export const adminQueries = { getAllUsers };
+const getAllPets = async () => {
+  const { data } = await axiosPublic.get('/pets');
+  return await data;
+}
+
+
+const getAllPost = async () => {
+  const { data } = await axiosPublic.get('/posts');
+  return data;
+}
+
+
+//how many adoption
+const getAllAdoption = async () => {
+  const { data } = await axiosPublic.get('/all-adoption');
+  return data;
+}
+
+
+
+
+
+export const adminQueries = {
+  getAllUsers,
+  getAllPets,
+  getAllPost,
+  getAllAdoption,
+
+};

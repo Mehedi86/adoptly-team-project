@@ -1,5 +1,5 @@
 'use client';
-import { Home,HousePlus, Inbox, Calendar, Search, Settings } from "lucide-react"
+import { Home,HousePlus, User, Calendar, Search, Settings } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -11,6 +11,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import Link from "next/link";
+import { MdPets } from "react-icons/md";
 
 // Menu items.
 const items = [
@@ -20,14 +21,14 @@ const items = [
     icon: Home,
   },
   {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
+    title: "All Users",
+    url: "/allUsers",
+    icon: User,
   },
   {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
+    title: "All Pets",
+    url: "/allPets",
+    icon: MdPets,
   },
   {
     title: "Search",
