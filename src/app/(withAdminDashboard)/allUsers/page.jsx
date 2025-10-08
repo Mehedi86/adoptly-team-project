@@ -46,7 +46,8 @@ const rowVariants = {
 
 const AllUserPage = () => {
   const { data: allUsers, isLoading, error, refetch } = adminDataFetching.useUsers();
-  const { user } = useAuth();
+  const { user:userEmail } = useAuth();
+  
   const [selectedUser, setSelectedUser] = useState(null);
 
   if (isLoading)
@@ -163,7 +164,7 @@ const AllUserPage = () => {
                   <div className="flex flex-col sm:flex-row gap-2 justify-center items-center">
                     {user.role !== 'admin' && (
                       <Button
-                        onClick={() => handleMakeAdmin(user.email)}
+                        onClick={() => handleMakeAdmin(userEmail.email)}
                         className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-1 text-sm rounded-full cursor-pointer"
                       >
                         Make Admin
