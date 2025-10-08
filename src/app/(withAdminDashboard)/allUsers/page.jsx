@@ -27,7 +27,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { axiosPublic } from '@/lib/axios/axios';
-import useAuth from '@/hooks/useAuth';
+// import useAuth from '@/hooks/useAuth';
 import toast from 'react-hot-toast';
 
 // 🎞 Animation Variants
@@ -46,7 +46,8 @@ const rowVariants = {
 
 const AllUserPage = () => {
   const { data: allUsers, isLoading, error, refetch } = adminDataFetching.useUsers();
-  const { user:userEmail } = useAuth();
+  // const { user: userEmail } = useAuth();
+
   
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -164,7 +165,7 @@ const AllUserPage = () => {
                   <div className="flex flex-col sm:flex-row gap-2 justify-center items-center">
                     {user.role !== 'admin' && (
                       <Button
-                        onClick={() => handleMakeAdmin(userEmail.email)}
+                        onClick={() => handleMakeAdmin(user.email)}
                         className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-1 text-sm rounded-full cursor-pointer"
                       >
                         Make Admin
