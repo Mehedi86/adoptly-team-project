@@ -42,10 +42,12 @@ const getAllAdoption = async () => {
 
 
 
+
+
 export const adminQueries = {
   getAllUsers,
   getAllPets,
   getAllPost,
   getAllAdoption,
-  
+
 };
