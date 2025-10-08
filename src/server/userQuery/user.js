@@ -1,6 +1,6 @@
 "use server";
 
-import { axiosPUblic } from "@/lib/axios/axios";
+import { axiosPublic } from "@/lib/axios/axios";
 
 
 export const createUser = async (userInfo) => {
@@ -17,7 +17,7 @@ export const createUser = async (userInfo) => {
     //   throw new Error("Failed to create user");
     // }
 
-    const {data} = await axiosPUblic.post('/user', userInfo)
+    const { data } = await axiosPublic.post('/user', userInfo)
 
     return await data;
   } catch (error) {

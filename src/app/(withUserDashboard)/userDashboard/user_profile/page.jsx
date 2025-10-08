@@ -1,4 +1,7 @@
 "use client"
+import useAxiosPublic from '@/hooks/axiosPublic/useAxiosPublic';
+import useAuth from '@/hooks/useAuth';
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -9,12 +12,27 @@ const userProfile = () => {
 
     const [openPersonalInfo, setOpenPersonalInfo] = useState(false);
     const [openAddressInfo, setOpenAddressInfo] = useState(false);
-
+    const { user } = useAuth();
+    const axiosPublic = useAxiosPublic();
 
     const onOpenPIModal = () => setOpenPersonalInfo(true);
     const onClosePIModal = () => setOpenPersonalInfo(false);
     const onOpenAddModal = () => setOpenAddressInfo(true);
     const onCloseAddModal = () => setOpenAddressInfo(false);
+
+
+
+    const { data: userData = [], refetch, isLoading: loading } = useQuery({
+        queryKey: ["userData", user?.email],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/user?email=${user?.email}`);
+            return res.data
+        }
+    })
+
+    console.log('checking data', userData);
+
+
 
     const {
         register: register1,
@@ -50,9 +68,9 @@ const userProfile = () => {
                 </div>
                 <div className='-mt-20 flex flex-col justify-center items-center gap-2'>
                     <div className='w-32'>
-                        <Image className='w-full' src={"https://i.ibb.co.com/WcTWxsN/nav-img.png"} width={500} height={300} alt='Banner' />
+                        <Image className='border rounded-full w-32 h-32' src={userData.photo ? userData?.photo : "https://i.ibb.co.com/WcTWxsN/nav-img.png"} width={500} height={300} alt={userData?.name} />
                     </div>
-                    <h1 className='text-xl'>Kalidash Odekare</h1>
+                    <h1 className='text-xl'>{userData?.name ? userData?.name : "N/A"}</h1>
                 </div>
             </div>
             <div className='border my-2'>
@@ -63,15 +81,15 @@ const userProfile = () => {
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-2'>
                     <div className='py-5 space-y-1'>
                         <h3 className='text-[#686868]'>Full Name</h3>
-                        <p>Kalidash Odekare</p>
+                        <p>{userData?.name ? userData?.name : "N/A"}</p>
                     </div>
                     <div className='py-5 space-y-1'>
                         <h3 className='text-[#686868]'>Email</h3>
-                        <p>kalidashodekare14@gmail.com</p>
+                        <p>{userData?.email ? userData?.email : "N/A"}</p>
                     </div>
                     <div className='py-5 space-y-1'>
                         <h3 className='text-[#686868]'>Phone</h3>
-                        <p>+8801725875486</p>
+                        <p>{userData?.name ? userData?.name : "N/A"}</p>
                     </div>
                     <div className='py-5 space-y-1'>
                         <h3 className='text-[#686868]'>Date of birth</h3>
@@ -81,13 +99,13 @@ const userProfile = () => {
             </div>
             <div className='border my-2'>
                 <div className='border-b p-2 flex items-center justify-between'>
-                    <p className='font-bold'>Address</p>
+                    <p className='font-bold'>Other Information</p>
                     <button onClick={onOpenAddModal} className='btn rounded-sm bg-[#E76F51] text-white border-0'>Edit</button>
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-2'>
                     <div className='py-5 space-y-1'>
-                        <h3 className='text-[#686868]'>Country</h3>
-                        <p>Bangladesh</p>
+                        <h3 className='text-[#686868]'>Address</h3>
+                        <p>{userData?.address ? userData?.address : "N/A"}</p>
                     </div>
                     <div className='py-5 space-y-1'>
                         <h3 className='text-[#686868]'>City</h3>
