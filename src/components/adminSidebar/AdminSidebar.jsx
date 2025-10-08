@@ -11,6 +11,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import Link from "next/link";
+import { MdPets } from "react-icons/md";
 
 // Menu items.
 const items = [
@@ -25,9 +26,9 @@ const items = [
     icon: User,
   },
   {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
+    title: "All Pets",
+    url: "/allPets",
+    icon: MdPets,
   },
   {
     title: "Search",

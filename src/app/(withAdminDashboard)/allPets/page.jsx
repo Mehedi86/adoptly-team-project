@@ -15,24 +15,20 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+
 import { adminDataFetching } from '@/hooks/adminDataFetching/admin';
 import useAuth from '@/hooks/useAuth';
+import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
+import { axiosPublic } from '@/lib/axios/axios';
 
 // 🌀 Framer Motion Animation Variants
 const animationVariants = {
   container: {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 },
+    },
   },
   item: {
     hidden: { opacity: 0, y: 20 },
@@ -44,70 +40,54 @@ const AllPets = () => {
   const { user } = useAuth();
   const { data: allPets, isLoading, error, refetch } = adminDataFetching.useAllPets();
 
+  const [openRejectModal, setOpenRejectModal] = useState(false);
   const [selectedPet, setSelectedPet] = useState(null);
-  const [openAlert, setOpenAlert] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false);
 
-  // ✅ Accept Pet
-  const handleAccepted = async (id) => {
-    setIsProcessing(true);
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/pets/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userEmail: user?.email,
-          status: 'accepted',
-        }),
-      });
+ // ✅ Accept Pet
+const handleAccepted = async (id) => {
+  try {
+    const res = await axiosPublic.put(`/pets/${id}`, {
+      userEmail: user?.email,
+      status: 'accepted',
+    });
 
-      const data = await res.json();
-      if (res.ok) {
-        toast.success('Pet adoption request accepted ✅');
-        refetch();
-      } else {
-        toast.error(data.message || 'Failed to update status');
-      }
-    } catch {
-      toast.error('Something went wrong');
-    } finally {
-      setIsProcessing(false);
+    if (res.status === 200) {
+      toast.success('Pet adoption request accepted ✅');
+      refetch();
+    } else {
+      toast.error(res.data?.message || 'Failed to update status');
     }
-  };
+  } catch (err) {
+    toast.error(err.response?.data?.message || 'Something went wrong');
+  }
+};
 
-  // ✅ Open Reject Modal
+  // ✅ Reject Pet (open modal first)
   const handleRejectClick = (pet) => {
     setSelectedPet(pet);
-    setOpenAlert(true);
+    setOpenRejectModal(true);
   };
 
-  // ✅ Confirm Reject
-  const confirmReject = async () => {
-    setIsProcessing(true);
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/pets/${selectedPet._id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userEmail: user?.email,
-          status: 'rejected',
-        }),
-      });
+ // ✅ Confirm Reject
+const confirmReject = async () => {
+  try {
+    const res = await axiosPublic.put(`/pets/${selectedPet._id}`, {
+      userEmail: user?.email,
+      status: 'rejected',
+    });
 
-      const data = await res.json();
-      if (res.ok) {
-        toast.success('Pet adoption request rejected ❌');
-        refetch();
-      } else {
-        toast.error(data.message || 'Failed to update status');
-      }
-    } catch {
-      toast.error('Something went wrong');
-    } finally {
-      setIsProcessing(false);
-      setOpenAlert(false);
+    if (res.status === 200) {
+      toast.success('Pet adoption request rejected ❌');
+      refetch();
+    } else {
+      toast.error(res.data?.message || 'Failed to update status');
     }
-  };
+  } catch (err) {
+    toast.error(err.response?.data?.message || 'Something went wrong');
+  } finally {
+   setOpenRejectModal(false);
+  }
+};
 
   // ✅ Loading & Error States
   if (isLoading)
@@ -187,15 +167,13 @@ const AllPets = () => {
                     <div className="flex flex-col items-center gap-2">
                       <Button
                         onClick={() => handleAccepted(pet._id)}
-                        disabled={isProcessing}
-                        className="bg-green-200 text-green-600 hover:bg-green-300 text-xs md:text-sm"
+                        className="bg-green-200 text-green-600 hover:bg-green-300 text-xs md:text-sm cursor-pointer"
                       >
-                        {isProcessing ? 'Processing...' : 'Accept'}
+                        Accept
                       </Button>
                       <Button
                         onClick={() => handleRejectClick(pet)}
-                        disabled={isProcessing}
-                        className="bg-rose-200 text-rose-600 hover:bg-rose-300 text-xs md:text-sm"
+                        className="bg-rose-200 text-rose-600 hover:bg-rose-300 text-xs md:text-sm cursor-pointer"
                       >
                         Reject
                       </Button>
@@ -208,26 +186,26 @@ const AllPets = () => {
         </Table>
       </motion.div>
 
-      {/* 🧩 Reject Confirmation Alert */}
-      <AlertDialog open={openAlert} onOpenChange={setOpenAlert}>
-        <AlertDialogContent>
+      {/* 🧩 Reject Confirmation Modal */}
+      <AlertDialog open={openRejectModal} onOpenChange={setOpenRejectModal}>
+        <AlertDialogContent className="sm:max-w-md">
           <AlertDialogHeader>
-            <AlertDialogTitle>Confirm Rejection</AlertDialogTitle>
+            <AlertDialogTitle>Reject Confirmation</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to reject{' '}
-              <span className="font-semibold">{selectedPet?.name}</span>?<br />
+              Are you sure you want to reject <b>{selectedPet?.name}</b>?
               This action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={isProcessing}>Cancel</AlertDialogCancel>
-            <AlertDialogAction
+          <AlertDialogFooter className="flex justify-end gap-2">
+            <Button variant="outline" onClick={() => setOpenRejectModal(false)} className={'cursor-pointer'}>
+              Cancel
+            </Button>
+            <Button
               onClick={confirmReject}
-              className="bg-rose-500 hover:bg-rose-600 text-white"
-              disabled={isProcessing}
+              className="bg-rose-500 hover:bg-rose-600 text-white cursor-pointer"
             >
-              {isProcessing ? 'Rejecting...' : 'Confirm Reject'}
-            </AlertDialogAction>
+              Confirm Reject
+            </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
