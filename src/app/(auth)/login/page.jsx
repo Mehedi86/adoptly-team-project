@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import useAuth from "@/hooks/useAuth";
 import Link from "next/link";
@@ -13,10 +13,19 @@ import { createUser } from "@/server/userQuery/user";
 // 🧩 Separate inner component so we can wrap with Suspense
 function LoginContent() {
   const { userLoginSystem, googleAuthSystem } = useAuth();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
+  // const location = searchParams.get("redirect") || "/";
+  const [location, setLocation] = useState("/");
   const router = useRouter();
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setLocation(params.get("redirect") || "/");
+  }, []);
+
+
+
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const location = searchParams.get("redirect") || "/";
+
 
   // 🔐 Email/password login
   const onSubmit = (data) => {
@@ -46,7 +55,7 @@ function LoginContent() {
       router.push(location);
     } catch (error) {
       console.error("Google sign-in failed:", error);
-      toast.error("This email may already exist in the database.");
+      // toast.error("This email may already exist in the database.");
       router.push(location);
     }
   };
