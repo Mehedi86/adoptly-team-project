@@ -1,15 +1,18 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
+import { userQueries } from "@/lib/client/user";
 
-const { usersQueries } = require("@/server/userQuery/user");
 
-const useAllOffers = ()=> {
-return useQuery({
-    queryKey: ["allOffers"],
-    queryFn: usersQueries.getAllOffers
-})
-}
+const { useQuery } = require("@tanstack/react-query");
+
+const getAllOfferData = () => {
+  return useQuery({
+    queryKey: ['offers'],
+    queryFn: userQueries.getAllOffer
+  });
+};
+
 export const userDataFetching = {
-    useAllOffers
+  getAllOfferData
 }
+

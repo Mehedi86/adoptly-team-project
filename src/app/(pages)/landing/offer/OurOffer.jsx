@@ -7,8 +7,6 @@ import Image from "next/image";
 
 const OurOffer = () => {
 
-const {data: offers} = userDataFetching.useAllOffers();
-console.log(offers);
 
   
 

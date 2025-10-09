@@ -1,36 +1,47 @@
 "use client";
+
+import { Suspense, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import useAuth from "@/hooks/useAuth";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useForm } from "react-hook-form"
-import { FaGoogle } from "react-icons/fa"
+import { useForm } from "react-hook-form";
+import { FaGoogle } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { createUser } from "@/server/userQuery/user";
-export default function LoginPage() {
-  const { userLoginSystem, googleAuthSystem } = useAuth();
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const location = searchParams.get("redirect") || "/";
 
+// 🧩 Separate inner component so we can wrap with Suspense
+function LoginContent() {
+  const { userLoginSystem, googleAuthSystem } = useAuth();
+  // const searchParams = useSearchParams();
+  // const location = searchParams.get("redirect") || "/";
+  const [location, setLocation] = useState("/");
+  const router = useRouter();
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setLocation(params.get("redirect") || "/");
+  }, []);
+
+
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+
+  // 🔐 Email/password login
   const onSubmit = (data) => {
     userLoginSystem(data?.email, data?.password)
       .then((result) => {
-        const loggedUser = result.user;
-        console.log(loggedUser);
         toast.success("Login successful");
         router.push(location);
+      })
+      .catch(() => toast.error("Invalid email or password"));
+  };
 
-      });
-  }
-
+  // 🔑 Google login
   const signInWithGoogle = async () => {
     try {
       const result = await googleAuthSystem();
       const loggedUser = result.user;
-
-      console.log(loggedUser);
 
       const userInfo = {
         name: loggedUser.displayName,
@@ -39,55 +50,77 @@ export default function LoginPage() {
         role: "user",
       };
 
-      const res = await createUser(userInfo);
-
-      // console.log('google login res', res);
-      // if (res.status === 400) {
-      // toast.success(res.message);
-      // }
-      
-      
-      router.push(location);
+      await createUser(userInfo);
       toast.success("Login successful");
-
+      router.push(location);
     } catch (error) {
       console.error("Google sign-in failed:", error);
-      toast.error("This email already exists into Database.");
-       router.push(location);
+      // toast.error("This email may already exist in the database.");
+      router.push(location);
     }
   };
 
-
   return (
-    <div className="flex items-center justify-center min-h-screen bg-login ">
-      <div className="backdrop-blur-xs border-2 border-black p-5 lg:w-[450px]  shadow-lg ">
+    <div className="flex items-center justify-center min-h-screen bg-login px-4">
+      <div className="backdrop-blur-xs border-2 border-black p-5 w-full max-w-md shadow-lg rounded-lg bg-white/70">
         <h2 className="text-2xl text-black font-bold mb-4 text-center">Login</h2>
-        <form onSubmit={handleSubmit(onSubmit)} className=" flex flex-col gap-2">
 
-          {/* email */}
+        {/* 🧾 Login Form */}
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
           <label className="text-gray-800 font-semibold">Email</label>
-          <input type="email" className="bg-black p-3" placeholder="Email" {...register("email", { required: true })} />
-          {errors.email && <span className="text-red-500">This field is required</span>}
+          <input
+            type="email"
+            className="bg-black text-white p-3 rounded-md"
+            placeholder="Email"
+            {...register("email", { required: true })}
+          />
+          {errors.email && <span className="text-red-500">Email is required</span>}
 
-          {/* password */}
           <label className="text-gray-800 font-semibold">Password</label>
-          <input type="password" className="bg-black p-3" placeholder="Password" {...register("password", { required: true })} />
-          {errors.password && <span className="text-red-500">This field is required</span>}
+          <input
+            type="password"
+            className="bg-black text-white p-3 rounded-md"
+            placeholder="Password"
+            {...register("password", { required: true })}
+          />
+          {errors.password && <span className="text-red-500">Password is required</span>}
 
-          <button type="submit" className=" cursor-pointer  bg-black text-white  p-3 mt-4">Login</button>
+          <button
+            type="submit"
+            className="bg-black text-white py-3 rounded-md mt-3 hover:bg-gray-900 transition"
+          >
+            Login
+          </button>
         </form>
-        <hr className="border border-white mt-5" />
-        <div className="mt-4 *:flex *:justify-center">
-          <p className="text-gray-800 text-lg">Don't have an account? <Link href="/register" className="text-red-500 underline hover:text-red-600 ml-2   transition">Register</Link></p>
 
-          <div className="mt-4 *:flex *:justify-center">
-            <Button onClick={() => signInWithGoogle()} className="w-full rounded-none py-6 bg-black text-white border-none text-lg cursor-pointer" >
-              <FaGoogle size={24} /> Login with Google
-            </Button>
+        <hr className="border border-gray-300 mt-6" />
 
-          </div>
+        <p className="text-gray-800 text-lg text-center mt-4">
+          Don&apos;t have an account?
+          <Link href="/register" className="text-red-500 underline ml-2 hover:text-red-600">
+            Register
+          </Link>
+        </p>
+
+        {/* 🧭 Google Login */}
+        <div className="mt-5 flex justify-center">
+          <Button
+            onClick={signInWithGoogle}
+            className="w-full rounded-md py-4 bg-black text-white text-lg flex items-center justify-center gap-2 hover:bg-gray-900 transition"
+          >
+            <FaGoogle size={22} /> Login with Google
+          </Button>
         </div>
       </div>
     </div>
+  );
+}
+
+// 🌀 Main Export (Suspense Wrapper)
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<p className="text-center py-10 text-gray-600">Loading login...</p>}>
+      <LoginContent />
+    </Suspense>
   );
 }

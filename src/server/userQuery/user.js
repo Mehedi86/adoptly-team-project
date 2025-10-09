@@ -37,3 +37,5 @@ const getAllOffers = async() => {
 export const usersQueries = {
   getAllOffers
 };
+
+
