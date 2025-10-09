@@ -6,10 +6,16 @@ import Image from 'next/image';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import { useState } from 'react';
+import useUser from '@/hooks/useUser/useUser';
+import { useForm } from 'react-hook-form';
+import toast, { Toaster } from 'react-hot-toast';
 
 const AdoptionDetails = ({ id }) => {
 
     const axiosPublic = useAxiosPublic();
+    const [userData, userRefetch, userLoading] = useUser();
+
+    console.log('checking user data', userData);
 
     // Modal
     const [open, setOpen] = useState(false);
@@ -24,13 +30,38 @@ const AdoptionDetails = ({ id }) => {
         }
     })
 
-    const { data: userData, refetch: userRefetch, isLoading: userLoading } = useQuery({
-        queryKey: ["singleAdoption"],
-        queryFn: async () => {
-            const res = await axiosPublic.get(`/pets/${id}`);
-            return res.data.data
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm()
+
+    const onSubmit = async (data) => {
+        console.log(data)
+        const userRequest = {
+            userId: userData?._id,
+            petId: singleAdoption?._id,
+            userEmail: data.userEmail,
+            phoneNumber: data.phoneNumber,
+            address: {
+                district: data.district,
+                division: data.division,
+            },
+            quantity: data.quantity
         }
-    })
+        try {
+            const res = await axiosPublic.post("/request", userRequest);
+            console.log(res);
+            if (res.status === 201) {
+                toast.success('Your request successfully');
+                onCloseModal()
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
 
 
 
@@ -86,29 +117,34 @@ const AdoptionDetails = ({ id }) => {
                 </div>
             </div>
             <Modal open={open} onClose={onCloseModal} center>
-                <div className='space-y-2'>
+                <form onSubmit={handleSubmit(onSubmit)} className='space-y-2'>
                     <p className='text-xl my-5'>Please provide information</p>
                     <div>
                         <label htmlFor="">Email</label>
-                        <input className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your email' type="text" />
+                        <input {...register("userEmail", { required: true })} disabled defaultValue={userData?.email} className=' w-full border border-[#bbbb] bg-white disabled:bg-white disabled:text-black text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your email' type="text" />
                     </div>
                     <div>
                         <label htmlFor="">Phone Number</label>
-                        <input className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your number' type="text" />
+                        <input {...register("phoneNumber", { required: true })} className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your number' type="text" />
                     </div>
                     <div>
-                        <label htmlFor="">Address</label>
-                        <input className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your address' type="text" />
+                        <label htmlFor="">Discrict</label>
+                        <input {...register("district", { required: true })} defaultValue={userData?.address} className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your address' type="text" />
+                    </div>
+                    <div>
+                        <label htmlFor="">Division</label>
+                        <input {...register("division", { required: true })} defaultValue={userData?.address} className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your address' type="text" />
                     </div>
                     <div>
                         <label htmlFor="">Quantity</label>
-                        <input className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your queantity' type="text" />
+                        <input {...register("quantity", { required: true })} className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your queantity' type="text" />
                     </div>
                     <div className='text-center my-5'>
                         <button className='btn text-center border-0 bg-[#e76f51] text-white'>Submit</button>
                     </div>
-                </div>
+                </form>
             </Modal>
+            <Toaster />
         </div>
     );
 };

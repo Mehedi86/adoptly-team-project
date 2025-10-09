@@ -7,6 +7,10 @@ import useAxiosPublic from '@/hooks/axiosPublic/useAxiosPublic';
 import { FaCircleUser } from 'react-icons/fa6';
 import UserDataUpdate from './userDataUpdate';
 import Swal from 'sweetalert2';
+import Image from 'next/image';
+import { FaCamera } from 'react-icons/fa';
+const IMG_API_KEY = process.env.NEXT_PUBLIC_IMG_HOSTING;
+const IMG_HOSTING = `https://api.imgbb.com/1/upload?key=${IMG_API_KEY}`
 
 const UserPost = ({ user, refetch, userPostData, open, onOpenModal, onCloseModal }) => {
 
@@ -18,6 +22,10 @@ const UserPost = ({ user, refetch, userPostData, open, onOpenModal, onCloseModal
     const onPetDataCloseModal = () => setPetDataOpen(false);
     // Pets data update selected statement
     const [petSelectedData, setPetSelectedData] = useState(null);
+    // Image hosting statement
+    const [imageHosting, setImageHosting] = useState("");
+    const [imgHostingLoading, setImgHostingLoading] = useState(false);
+
 
     const {
         register,
@@ -28,9 +36,9 @@ const UserPost = ({ user, refetch, userPostData, open, onOpenModal, onCloseModal
 
     const onSubmit = async (data) => {
         console.log('checking data', data);
-        const requestData = {
+        const userPostData = {
             name: data.name,
-            image: data.image || "",
+            image: imageHosting || "",
             description: isDescription || "",
             age: parseInt(data.age) || "",
             gender: data.gender || "",
@@ -50,10 +58,10 @@ const UserPost = ({ user, refetch, userPostData, open, onOpenModal, onCloseModal
             isAdopted: false,
         };
 
-        console.log('checking final data', requestData);
+        console.log('checking final data', userPostData);
 
         try {
-            const res = await axiosPublic.post(`/pets`, requestData, {
+            const res = await axiosPublic.post(`/pets`, userPostData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -96,6 +104,28 @@ const UserPost = ({ user, refetch, userPostData, open, onOpenModal, onCloseModal
         });
     }
 
+
+    const handleImageHosting = async (event) => {
+        const imageSelected = event.target.files[0];
+        setImgHostingLoading(true)
+        const formData = new FormData()
+        formData.append("image", imageSelected);
+        try {
+            const res = await fetch(`${IMG_HOSTING}`, {
+                method: "POST",
+                body: formData
+            })
+            const data = await res.json();
+            if (data.success) {
+                setImageHosting(data.data.url);
+            }
+        } catch (error) {
+            console.log(error.message);
+        } finally {
+            setImgHostingLoading(false)
+        }
+    }
+
     return (
         <div>
             <div className="overflow-x-auto rounded-box border border-base-content/5 ">
@@ -123,7 +153,13 @@ const UserPost = ({ user, refetch, userPostData, open, onOpenModal, onCloseModal
                             userPostData.map(pets => (
                                 <tr>
                                     <th>
-                                        {pets.image ? pets.image : <FaCircleUser className='text-5xl' />}
+                                        {
+                                            pets.image ? (
+                                                <Image className='w-52' src={pets.image} width={500} height={300} alt='' />
+                                            ) : (
+                                                <FaCircleUser className='text-5xl' />
+                                            )
+                                        }
                                     </th>
                                     <td>{pets?.name}</td>
                                     <td>{pets?.age}</td>
@@ -168,6 +204,25 @@ const UserPost = ({ user, refetch, userPostData, open, onOpenModal, onCloseModal
             />
             <Modal open={open} onClose={onCloseModal} center>
                 <p className='my-5 font-bold'>Create Post</p>
+                <div className='flex justify-center items-center'>
+                    <div className="relative w-28 h-28 mb-5 rounded-full">
+                        <Image
+                            className='w-full h-full rounded-full'
+                            src={imageHosting ? imageHosting : "https://i.ibb.co/WcTWxsN/nav-img.png"}
+                            width={500}
+                            height={300}
+                            alt={""}
+                        />
+
+                        <div onClick={() => document.querySelector('input[type="file"]').click()} className={`absolute cursor-pointer bottom-0 right-0 ${imgHostingLoading ? "bg-[#39b9ca]" : "bg-[#cfcfcf]"}  p-2 w-10 h-10 flex justify-center items-center rounded-full`}>
+                            {
+                                imgHostingLoading ? <span class="loader"></span> : <FaCamera className=' text-xl' />
+                            }
+
+                            <input onChange={handleImageHosting} hidden type="file" />
+                        </div>
+                    </div>
+                </div>
                 <form onSubmit={handleSubmit(onSubmit)} className=' space-y-2'>
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-5'>
                         <div>

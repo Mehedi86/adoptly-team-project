@@ -10,10 +10,10 @@ const userRequest = () => {
     const { user, loading } = useAuth();
 
     const { data: userRequestData = [], refetch, isLoading: userLoading } = useQuery({
-        queryKey: ["userRequestData"],
+        queryKey: ["userRequestData", user?.email],
         queryFn: async () => {
             const res = await axiosPublic.get(`/request/user/${user?.email}`);
-            return res.data.data
+            return res.data.request
         }
     })
 
