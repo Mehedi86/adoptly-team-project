@@ -7,6 +7,7 @@ import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
 import './HeroSection.css'
 import Link from 'next/link';
+import useAuth from '@/hooks/useAuth';
 
 const bannerInfo = [
     {
@@ -27,6 +28,10 @@ const bannerInfo = [
 
 
 const HeroSection = () => {
+
+    const { user } = useAuth();
+    
+
     return (
         <div className='relative z-10'>
             <Swiper

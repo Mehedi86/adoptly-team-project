@@ -28,14 +28,4 @@ export const createUser = async (userInfo) => {
 
 };
 
-const getAllOffers = async() => {
-  const {data} = await axiosPublic.get("/offers")
-  return data;
-}
-
-
-export const usersQueries = {
-  getAllOffers
-};
-
 
