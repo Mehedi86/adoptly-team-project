@@ -49,5 +49,4 @@ export const adminQueries = {
   getAllPets,
   getAllPost,
   getAllAdoption,
-
 };

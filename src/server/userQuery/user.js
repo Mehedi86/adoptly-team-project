@@ -1,4 +1,4 @@
-"use server";
+// "use server";
 
 import { axiosPublic } from "@/lib/axios/axios";
 
@@ -24,6 +24,8 @@ export const createUser = async (userInfo) => {
     console.error("Error creating user:", error);
     throw error;
   }
+
+
 };
 
 

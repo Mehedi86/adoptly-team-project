@@ -26,6 +26,13 @@ const blogs = [
     desc: "Read inspiring stories of stray animals finding loving homes and the joy they bring to families through adoption.",
     img: "/images/blogImg/blog3.jpg",
   },
+{
+  id: 4,
+  title: "The Power of Volunteering: Changing Lives Together",
+  date: "October 8, 2025",
+  desc: "Discover how volunteers are making a real difference every day — building communities, spreading kindness, and inspiring change around the world.",
+  img: "/blog/img4.jpg",
+}
 ];
 
 // Reusable animation
@@ -48,7 +55,7 @@ export default function BlogSection() {
       </div>
 
       {/* Blog Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {blogs.map((blog, i) => (
           <motion.div
             key={blog.id}
