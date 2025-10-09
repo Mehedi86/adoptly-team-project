@@ -150,48 +150,61 @@ const UserPost = ({ user, refetch, userPostData, open, onOpenModal, onCloseModal
                     <tbody>
                         {/* row 1 */}
                         {
-                            userPostData.map(pets => (
+                            userPostData.length > 0 ? (
+                                userPostData.map(pets => (
+                                    <tr>
+                                        <th>
+                                            {
+                                                pets.image ? (
+                                                    <Image className='w-52' src={pets.image} width={500} height={300} alt='' />
+                                                ) : (
+                                                    <FaCircleUser className='text-5xl' />
+                                                )
+                                            }
+                                        </th>
+                                        <td>{pets?.name}</td>
+                                        <td>{pets?.age}</td>
+                                        <td>{pets?.gender}</td>
+                                        <td>{pets?.weight}</td>
+                                        <td>{pets?.breed}</td>
+                                        <td>{pets?.species}</td>
+                                        <td>{pets?.quantity}</td>
+                                        <td>
+                                            <div className='flex flex-col gap-2'>
+                                                <span>{pets?.phoneNumber}</span>
+                                                <span>{pets?.userEmail}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div className='flex flex-col gap-2'>
+                                                <span>{pets?.address.district}</span>
+                                                <span>{pets?.address.division}</span>
+                                            </div>
+                                        </td>
+                                        <td>{pets?.status}</td>
+                                        <td>
+                                            <div className="dropdown dropdown-end">
+                                                <div tabIndex={0} role="button" className="btn bg-white text-black shadow-none border border-[#bbb] m-1">...</div>
+                                                <ul tabIndex={0} className="dropdown-content menu bg-white rounded-box z-1 w-52 p-2 shadow-sm">
+                                                    <li onClick={() => { onPetDataOpenModal(), setPetSelectedData(pets) }}><a>Update</a></li>
+                                                    <li onClick={() => handlePetDelete(pets?._id)}><a>Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
                                 <tr>
-                                    <th>
-                                        {
-                                            pets.image ? (
-                                                <Image className='w-52' src={pets.image} width={500} height={300} alt='' />
-                                            ) : (
-                                                <FaCircleUser className='text-5xl' />
-                                            )
-                                        }
-                                    </th>
-                                    <td>{pets?.name}</td>
-                                    <td>{pets?.age}</td>
-                                    <td>{pets?.gender}</td>
-                                    <td>{pets?.weight}</td>
-                                    <td>{pets?.breed}</td>
-                                    <td>{pets?.species}</td>
-                                    <td>{pets?.quantity}</td>
-                                    <td>
-                                        <div className='flex flex-col gap-2'>
-                                            <span>{pets?.phoneNumber}</span>
-                                            <span>{pets?.userEmail}</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className='flex flex-col gap-2'>
-                                            <span>{pets?.address.district}</span>
-                                            <span>{pets?.address.division}</span>
-                                        </div>
-                                    </td>
-                                    <td>{pets?.status}</td>
-                                    <td>
-                                        <div className="dropdown dropdown-end">
-                                            <div tabIndex={0} role="button" className="btn bg-white text-black shadow-none border border-[#bbb] m-1">...</div>
-                                            <ul tabIndex={0} className="dropdown-content menu bg-white rounded-box z-1 w-52 p-2 shadow-sm">
-                                                <li onClick={() => { onPetDataOpenModal(), setPetSelectedData(pets) }}><a>Update</a></li>
-                                                <li onClick={() => handlePetDelete(pets?._id)}><a>Delete</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>No Data</td>
                                 </tr>
-                            ))
+
+                            )
+
                         }
                     </tbody>
                 </table>

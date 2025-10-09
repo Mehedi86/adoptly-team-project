@@ -106,7 +106,12 @@ const RequestList = ({ userRequestData, refetch, loading }) => {
                                     </tr>
                                 ))
                             ) : (
-                                ""
+                               <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>No Data</td>
+                               </tr>
                             )
                         }
 

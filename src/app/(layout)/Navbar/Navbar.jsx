@@ -1,5 +1,7 @@
 "use client"
 import useAuth from '@/hooks/useAuth';
+import useUser from '@/hooks/useUser/useUser';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -14,9 +16,10 @@ const Navbar = () => {
     const pathname = usePathname()
     const [isTheme, setIsTheme] = useState(false);
     const { user, loading, logoutSystem } = useAuth();
+    const [userData, userRefetch, userLoading] = useUser();
 
+    console.log('checking userData', userData);
 
-    console.log('checking theme', isTheme);
 
     const navgicaton = [
         {
@@ -48,6 +51,11 @@ const Navbar = () => {
             "id": 6,
             "name": "Blog",
             "path": "/blog"
+        },
+        {
+            "id": 7,
+            "name": "Contributor",
+            "path": "/contributor"
         },
     ]
 
@@ -125,19 +133,35 @@ const Navbar = () => {
                             <div className="dropdown dropdown-end">
                                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                                     <div className="w-14 rounded-full">
-                                        <img
-                                            alt="Tailwind CSS Navbar component"
-                                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                        <Image
+                                            src={`${userData?.photo ? userData?.photo : "https://i.ibb.co.com/0VpT31Vw/user.png"}`}
+                                            width={500}
+                                            height={300}
+                                            alt="Image"
+                                        />
                                     </div>
                                 </div>
                                 <ul
                                     tabIndex={0}
                                     className="menu menu-md dropdown-content bg-white dark:bg-[#0d1b2a] text-black dark:text-[#cfcfcf]  rounded-box z-1 mt-3 w-52 p-2 shadow">
-                                    <li className=''>
-                                        <a className="justify-between">
-                                            Profile
-                                        </a>
-                                    </li>
+                                    {
+                                        userData?.role === 'user' && (
+                                            <li className=''>
+                                                <Link href={"/userDashboard"} className="justify-between">
+                                                    Dashboard
+                                                </Link>
+                                            </li>
+                                        )
+                                    }
+                                    {
+                                        userData?.role === 'admin' && (
+                                            <li className=''>
+                                                <Link href={"/adminDashboard"} className="justify-between">
+                                                    Dashboard
+                                                </Link>
+                                            </li>
+                                        )
+                                    }
                                     <li><a>Settings</a></li>
                                     <li onClick={logoutSystem}><a>Logout</a></li>
                                 </ul>

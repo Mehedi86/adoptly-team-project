@@ -9,7 +9,7 @@ const users = [
     role: "Frontend Developer",
     country: "Bangladesh",
     img: "/team/kalidash.webp",
-    linkedin: "https://www.linkedin.com/in/kalidash",
+    linkedin: "https://www.linkedin.com/in/kalidash-odekare-webdev",
     github: "https://github.com/kalidashodekare14",
     portfolio: "https://dev-kalidash.vercel.app"
   },
