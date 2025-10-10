@@ -71,7 +71,7 @@ function RegisterContent() {
     } catch (error) {
       console.error("Google sign-in failed:", error);
       // toast.error("This email already exists in the database.");
-      router.push(location);
+      
     }
   };
 
