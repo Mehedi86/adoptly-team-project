@@ -68,7 +68,7 @@ const userProfile = () => {
             aboutUser: isDescription
         }
 
-        const res = await axiosPublic.put(`/user/${user?.email}`, otherInfo)
+        const res = await axiosPublic.patch(`/user/${user?.email}`, otherInfo)
         if (res.status === 200) {
             refetch()
             onCloseAddModal()

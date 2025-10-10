@@ -175,17 +175,17 @@ const AdoptionCard = ({ loading, adoptionData, currentPage, totalPages, handlePa
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 justify-items-stretch">
                 {
                     loading && [...Array(cardLoading)].map((_, index) => (
-                        <div class="lg:w-72 w-full rounded-md border border-[#E76F51] p-4">
-                            <div class="w-full flex flex-col animate-pulse space-x-4">
-                                <div class="w-full h-72 bg-gray-200"></div>
-                                <div class="flex-1 space-y-6 py-1">
-                                    <div class="grid grid-cols-2 gap-4">
-                                        <div class="col-span-1 h-5 rounded bg-gray-200"></div>
-                                        <div class="col-span-1 h-5 rounded bg-gray-200"></div>
+                        <div key={index} className="lg:w-72 w-full rounded-md border border-[#E76F51] p-4">
+                            <div className="w-full flex flex-col animate-pulse space-x-4">
+                                <div className="w-full h-72 bg-gray-200"></div>
+                                <div className="flex-1 space-y-6 py-1">
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="col-span-1 h-5 rounded bg-gray-200"></div>
+                                        <div className="col-span-1 h-5 rounded bg-gray-200"></div>
                                     </div>
-                                    <div class="h-5 rounded bg-gray-200"></div>
-                                    <div class="h-5 rounded bg-gray-200"></div>
-                                    <div class="h-10 w-32 rounded bg-gray-200"></div>
+                                    <div className="h-5 rounded bg-gray-200"></div>
+                                    <div className="h-5 rounded bg-gray-200"></div>
+                                    <div className="h-10 w-32 rounded bg-gray-200"></div>
                                 </div>
                             </div>
                         </div>

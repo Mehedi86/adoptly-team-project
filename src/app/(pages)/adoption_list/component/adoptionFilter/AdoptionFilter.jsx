@@ -1,7 +1,25 @@
+"use client"
+import useAxiosPublic from "@/hooks/axiosPublic/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 import { IoMdClose } from "react-icons/io";
 
 
-const AdoptionFilter = ({ adoptionData, filter, setFilter, toggle, handleToggle }) => {
+const AdoptionFilter = ({ filter, setFilter, toggle, handleToggle }) => {
+
+    const axiosPublic = useAxiosPublic();
+
+    const { data: filterPetData = [], refetch: petRefetch, isLoading: petLoading } = useQuery({
+        queryKey: ["adoptionData", filter],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/pets`);
+            return res.data.data
+        }
+    })
+
+    // const filterPetData = data?.data || []
+
+    console.log('chekcing data filter', filterPetData);
+
 
 
     const hanleFilterClear = () => {
@@ -28,12 +46,18 @@ const AdoptionFilter = ({ adoptionData, filter, setFilter, toggle, handleToggle 
                     onChange={(e) => setFilter({ ...filter, species: e.target.value })}
                     className="border w-full p-2"
                 >
+                    <option value="">Select Species</option>
                     {
-                        adoptionData?.map((species, index) => (
-                            <option key={index} value={species?.species}>
-                                {species?.species || "N/A"}
-                            </option>
-                        ))
+                        filterPetData?.length > 0 ? (
+                            filterPetData?.map((species, index) => (
+                                <option key={index} value={species?.species}>
+                                    {species?.species || "N/A"}
+                                </option>
+                            ))
+                        ) : (
+                            "No Data"
+                        )
+
                     }
                 </select>
             </div>
@@ -44,9 +68,10 @@ const AdoptionFilter = ({ adoptionData, filter, setFilter, toggle, handleToggle 
                     onChange={(e) => setFilter({ ...filter, district: e.target.value })}
                     className="border w-full p-2"
                 >
+                    <option value="">Select District</option>
                     {
-                        adoptionData?.length > 0
-                            ? adoptionData.map((item, index) => (
+                        filterPetData?.length > 0
+                            ? filterPetData.map((item, index) => (
                                 <option key={index} value={item?.address?.district}>
                                     {item?.address?.district || "N/A"}
                                 </option>
@@ -64,8 +89,8 @@ const AdoptionFilter = ({ adoptionData, filter, setFilter, toggle, handleToggle 
                 >
                     <option value="">Select Division</option>
                     {
-                        adoptionData?.length > 0
-                            ? adoptionData.map((item, index) => (
+                        filterPetData?.length > 0
+                            ? filterPetData.map((item, index) => (
                                 <option key={index} value={item?.address?.division}>
                                     {item?.address?.division || "N/A"}
                                 </option>

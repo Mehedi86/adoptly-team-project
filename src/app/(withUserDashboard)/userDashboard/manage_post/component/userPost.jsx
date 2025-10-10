@@ -12,7 +12,7 @@ import { FaCamera } from 'react-icons/fa';
 const IMG_API_KEY = process.env.NEXT_PUBLIC_IMG_HOSTING;
 const IMG_HOSTING = `https://api.imgbb.com/1/upload?key=${IMG_API_KEY}`
 
-const UserPost = ({ user, refetch, userPostData, open, onOpenModal, onCloseModal }) => {
+const UserPost = ({ user, refetch, loading, userPostData, open, onOpenModal, onCloseModal }) => {
 
     const [isDescription, setIsDescription] = useState("");
     const axiosPublic = useAxiosPublic()
@@ -25,6 +25,7 @@ const UserPost = ({ user, refetch, userPostData, open, onOpenModal, onCloseModal
     // Image hosting statement
     const [imageHosting, setImageHosting] = useState("");
     const [imgHostingLoading, setImgHostingLoading] = useState(false);
+    const userDataLoading = 10
 
 
     const {
@@ -128,7 +129,7 @@ const UserPost = ({ user, refetch, userPostData, open, onOpenModal, onCloseModal
 
     return (
         <div>
-            <div className="overflow-x-auto rounded-box border border-base-content/5 ">
+            <div className="w-full overflow-x-auto rounded-box border border-base-content/5 ">
                 <table className="table">
                     {/* head */}
                     <thead>
@@ -152,15 +153,17 @@ const UserPost = ({ user, refetch, userPostData, open, onOpenModal, onCloseModal
                         {
                             userPostData.length > 0 ? (
                                 userPostData.map(pets => (
-                                    <tr>
+                                    <tr className='my-20'>
                                         <th>
-                                            {
-                                                pets.image ? (
-                                                    <Image className='w-52' src={pets.image} width={500} height={300} alt='' />
-                                                ) : (
-                                                    <FaCircleUser className='text-5xl' />
-                                                )
-                                            }
+                                            <div className='w-16 h-16'>
+                                                {
+                                                    pets.image ? (
+                                                        <Image className='w-full h-full rounded-full' src={pets.image} width={500} height={300} alt='' />
+                                                    ) : (
+                                                        <FaCircleUser className='text-5xl' />
+                                                    )
+                                                }
+                                            </div>
                                         </th>
                                         <td>{pets?.name}</td>
                                         <td>{pets?.age}</td>
@@ -185,26 +188,101 @@ const UserPost = ({ user, refetch, userPostData, open, onOpenModal, onCloseModal
                                         <td>
                                             <div className="dropdown dropdown-end">
                                                 <div tabIndex={0} role="button" className="btn bg-white text-black shadow-none border border-[#bbb] m-1">...</div>
-                                                <ul tabIndex={0} className="dropdown-content menu bg-white rounded-box z-1 w-52 p-2 shadow-sm">
-                                                    <li onClick={() => { onPetDataOpenModal(), setPetSelectedData(pets) }}><a>Update</a></li>
-                                                    <li onClick={() => handlePetDelete(pets?._id)}><a>Delete</a></li>
+                                                <ul tabIndex={0} className="space-y-2 dropdown-content menu bg-white rounded-box z-1 w-52 p-2 shadow-sm">
+                                                    <li className='bg-[#219ebc] text-white' onClick={() => { onPetDataOpenModal(), setPetSelectedData(pets) }}><a>Update</a></li>
+                                                    <li className='bg-[#c1121f] text-white' onClick={() => handlePetDelete(pets?._id)}><a>Delete</a></li>
                                                 </ul>
                                             </div>
                                         </td>
                                     </tr>
                                 ))
                             ) : (
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>No Data</td>
-                                </tr>
-
+                                <>
+                                    {
+                                        loading && (
+                                            [...Array(userDataLoading)].map((_, index) => (
+                                                <tr key={index}>
+                                                    <td>
+                                                        <div className="w-full flex items-center animate-pulse space-x-4">
+                                                            <div className="w-14 h-14 rounded-full bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="w-full flex items-center animate-pulse space-x-4">
+                                                            <div className="w-14 h-5 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="w-full flex items-center animate-pulse space-x-4">
+                                                            <div className="w-14 h-5 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="w-full flex items-center animate-pulse space-x-4">
+                                                            <div className="w-14 h-5 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="w-full flex items-center animate-pulse space-x-4">
+                                                            <div className="w-14 h-5 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="w-full flex items-center animate-pulse space-x-4">
+                                                            <div className="w-14 h-5 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="w-full flex items-center animate-pulse space-x-4">
+                                                            <div className="w-14 h-5 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="w-full flex flex-col animate-pulse space-y-2">
+                                                            <div className="w-20 h-5 animate-pulse bg-gray-200"></div>
+                                                            <div className="w-32 h-5 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="w-full flex flex-col animate-pulse space-y-2">
+                                                            <div className="w-20 h-5 animate-pulse bg-gray-200"></div>
+                                                            <div className="w-32 h-5 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="w-full flex flex-col animate-pulse space-y-2">
+                                                            <div className="w-20 h-5 animate-pulse bg-gray-200"></div>
+                                                            <div className="w-32 h-5 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="w-full flex items-center animate-pulse space-x-4">
+                                                            <div className="w-14 h-5 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="w-full flex items-center animate-pulse space-x-4">
+                                                            <div className="w-16 h-10 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        )
+                                    }
+                                    {
+                                        !loading && (
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>No Data</td>
+                                            </tr>
+                                        )
+                                    }
+                                </>
                             )
-
                         }
                     </tbody>
                 </table>
@@ -229,7 +307,7 @@ const UserPost = ({ user, refetch, userPostData, open, onOpenModal, onCloseModal
 
                         <div onClick={() => document.querySelector('input[type="file"]').click()} className={`absolute cursor-pointer bottom-0 right-0 ${imgHostingLoading ? "bg-[#39b9ca]" : "bg-[#cfcfcf]"}  p-2 w-10 h-10 flex justify-center items-center rounded-full`}>
                             {
-                                imgHostingLoading ? <span class="loader"></span> : <FaCamera className=' text-xl' />
+                                imgHostingLoading ? <span className="loader"></span> : <FaCamera className=' text-xl' />
                             }
 
                             <input onChange={handleImageHosting} hidden type="file" />

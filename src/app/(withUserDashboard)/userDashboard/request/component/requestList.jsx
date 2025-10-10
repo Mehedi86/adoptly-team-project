@@ -6,13 +6,14 @@ import { useForm } from 'react-hook-form';
 import useAxiosPublic from '@/hooks/axiosPublic/useAxiosPublic';
 import Swal from 'sweetalert2';
 
-const RequestList = ({ userRequestData, refetch, loading }) => {
+const RequestList = ({ userRequestData, refetch, requestLoading }) => {
 
     const [open, setOpen] = useState(false);
     const onOpenModal = () => setOpen(true);
     const onCloseModal = () => setOpen(false);
     const [selectedData, setSelectedData] = useState(null);
-    const axiosPublic = useAxiosPublic()
+    const axiosPublic = useAxiosPublic();
+    const userDataLoading = 10;
 
     const {
         register,
@@ -97,25 +98,74 @@ const RequestList = ({ userRequestData, refetch, loading }) => {
                                         <td>
                                             <div className="dropdown dropdown-end">
                                                 <div tabIndex={0} role="button" className="btn bg-white text-black shadow-none border border-[#bbb] m-1">...</div>
-                                                <ul tabIndex={0} className="dropdown-content menu bg-white rounded-box z-1 w-52 p-2 shadow-sm">
-                                                    <li onClick={() => { onOpenModal(), setSelectedData(request) }}><a>Update</a></li>
-                                                    <li onClick={() => handleRequestDataDelete(request._id)}><a>Delete</a></li>
+                                                <ul tabIndex={0} className="space-y-2 dropdown-content menu bg-white rounded-box z-1 w-52 p-2 shadow-sm">
+                                                    <li className='bg-[#219ebc] text-white' onClick={() => { onOpenModal(), setSelectedData(request) }}><a>Update</a></li>
+                                                    <li className='bg-[#c1121f] text-white' onClick={() => handleRequestDataDelete(request._id)}><a>Delete</a></li>
                                                 </ul>
                                             </div>
                                         </td>
                                     </tr>
                                 ))
                             ) : (
-                               <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>No Data</td>
-                               </tr>
+                                <>
+                                    {
+                                        requestLoading && (
+                                            [...Array(userDataLoading)].map((_, index) => (
+                                                <tr key={index}>
+                                                    <td>
+                                                        <div className="w-full flex items-center animate-pulse space-x-4">
+                                                            <div className="w-40 h-5 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="w-full flex items-center animate-pulse space-x-4">
+                                                            <div className="w-22 h-5 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="w-full flex items-center animate-pulse space-x-4">
+                                                            <div className="w-32 h-5 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="w-full flex items-center animate-pulse space-x-4">
+                                                            <div className="w-32 h-5 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="w-full flex items-center animate-pulse space-x-4">
+                                                            <div className="w-14 h-5 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="w-full flex items-center animate-pulse space-x-4">
+                                                            <div className="w-14 h-5 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="w-full flex items-center animate-pulse space-x-4">
+                                                            <div className="w-14 h-10 animate-pulse bg-gray-200"></div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        )
+                                    }
+                                    {
+                                        !requestLoading && (
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>No Data</td>
+                                            </tr>
+                                        )
+                                    }
+
+                                </>
+
                             )
                         }
-
-
                     </tbody>
                     <Modal open={open} onClose={onCloseModal} center>
                         <p className='my-5 font-bold'>Update Your Request</p>

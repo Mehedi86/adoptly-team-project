@@ -36,6 +36,8 @@ const allPets = () => {
         }
     })
 
+   
+
     const adoptionData = data?.data || []
     const total = data?.total || 0;
     const totalPages = Math.ceil(total / limit);
@@ -50,8 +52,8 @@ const allPets = () => {
 
     return (
         <div className='flex'>
-            <AdoptionFilter a
-                adoptionData={adoptionData}
+            <AdoptionFilter
+                // filterPetData={filterPetData}
                 filter={filter}
                 setFilter={setFilter}
                 toggle={toggle}
