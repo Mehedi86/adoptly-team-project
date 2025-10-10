@@ -6,7 +6,7 @@ export default function Layout({ children }) {
   return (
     <SidebarProvider>
       <UserSidebar />
-      <main className="w-full">
+      <main className="w-full overflow-hidden">
         {/* <SidebarTrigger /> */}
         <UserDashboardHeader />
         {children}
