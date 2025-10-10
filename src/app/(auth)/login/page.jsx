@@ -62,7 +62,7 @@ function LoginContent() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-login px-4">
-      <div className="backdrop-blur-xs border-2 border-black p-5 w-full max-w-md shadow-lg rounded-lg bg-white/70">
+      <div className="backdrop-blur-xs border-2 border-black p-5 w-full max-w-md shadow-lg rounded-lg  bg-white/70">
         <h2 className="text-2xl text-black font-bold mb-4 text-center">Login</h2>
 
         {/* 🧾 Login Form */}
@@ -70,7 +70,7 @@ function LoginContent() {
           <label className="text-gray-800 font-semibold">Email</label>
           <input
             type="email"
-            className="bg-black text-white p-3 rounded-md"
+            className="bg-white dark:bg-black text-black p-3 rounded-md"
             placeholder="Email"
             {...register("email", { required: true })}
           />
