@@ -58,10 +58,11 @@ function LoginContent() {
       await createUser(userInfo);
       toast.success("Login successful");
       router.push(location);
+      setLoading(false)
     } catch (error) {
       console.error("Google sign-in failed:", error);
       // toast.error("This email may already exist in the database.");
-      router.push(location);
+     
     }
   };
 
