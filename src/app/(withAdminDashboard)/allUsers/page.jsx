@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
+import { adminDataFetching } from '@/hooks/adminDataFetching/admin';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { MdPets } from 'react-icons/md';
-import { toast } from 'react-hot-toast';
+import { FaUser } from 'react-icons/fa';
+import { MdAdminPanelSettings } from 'react-icons/md';
+import { Button } from '@/components/ui/button';
 import {
   Table,
   TableBody,
@@ -14,7 +15,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,215 +24,190 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
+  AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { adminDataFetching } from '@/hooks/adminDataFetching/admin';
+import { axiosPublic } from '@/lib/axios/axios';
 import useAuth from '@/hooks/useAuth';
+import toast from 'react-hot-toast';
 
-// 🌀 Framer Motion Animation Variants
-const animationVariants = {
-  container: {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-  },
-  item: {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
+// 🎞 Animation Variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08 },
   },
 };
 
-const AllPets = () => {
+const rowVariants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+};
+
+const AllUserPage = () => {
+  const { data: allUsers, isLoading, error, refetch } = adminDataFetching.useUsers();
   const { user } = useAuth();
-  const { data: allPets, isLoading, error, refetch } = adminDataFetching.useAllPets();
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  const [selectedPet, setSelectedPet] = useState(null);
-  const [openAlert, setOpenAlert] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false);
-
-  // ✅ Accept Pet
-  const handleAccepted = async (id) => {
-    setIsProcessing(true);
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/pets/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userEmail: user?.email,
-          status: 'accepted',
-        }),
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        toast.success('Pet adoption request accepted ✅');
-        refetch();
-      } else {
-        toast.error(data.message || 'Failed to update status');
-      }
-    } catch {
-      toast.error('Something went wrong');
-    } finally {
-      setIsProcessing(false);
-    }
-  };
-
-  // ✅ Open Reject Modal
-  const handleRejectClick = (pet) => {
-    setSelectedPet(pet);
-    setOpenAlert(true);
-  };
-
-  // ✅ Confirm Reject
-  const confirmReject = async () => {
-    setIsProcessing(true);
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/pets/${selectedPet._id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userEmail: user?.email,
-          status: 'rejected',
-        }),
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        toast.success('Pet adoption request rejected ❌');
-        refetch();
-      } else {
-        toast.error(data.message || 'Failed to update status');
-      }
-    } catch {
-      toast.error('Something went wrong');
-    } finally {
-      setIsProcessing(false);
-      setOpenAlert(false);
-    }
-  };
-
-  // ✅ Loading & Error States
   if (isLoading)
-    return <p className="text-center py-10 text-gray-500 text-lg animate-pulse">Loading pets...</p>;
+    return (
+      <p className="text-center py-10 text-gray-500 text-lg animate-pulse">
+        Loading users...
+      </p>
+    );
+
   if (error)
-    return <p className="text-center py-10 text-red-500 text-lg">Failed to load pets 😢</p>;
+    return (
+      <p className="text-center py-10 text-red-500 text-lg">
+        Failed to load users 😢
+      </p>
+    );
+
+  // 🧩 Make User Admin
+  const handleMakeAdmin = async (email) => {
+    try {
+      await axiosPublic.patch(`/user/admin/${email}`);
+      toast.success('✅ User promoted to Admin');
+      refetch();
+    } catch {
+      toast.error('Something went wrong');
+    }
+  };
+
+  // 🧩 Delete User
+  const handleDelete = async () => {
+    if (!selectedUser) return;
+    try {
+      await axiosPublic.delete(`/user/${selectedUser.email}`);
+      toast.success('🗑️ User deleted successfully');
+      refetch();
+    } catch {
+      toast.error('Failed to delete user');
+    } finally {
+      setSelectedUser(null);
+    }
+  };
 
   return (
-    <div className="p-4 md:p-8">
+    <section className="p-4 md:p-8">
       {/* Header */}
-      <div className="mb-6 flex items-center gap-2">
-        <MdPets className="text-3xl text-primary" />
-        <h1 className="text-3xl font-bold text-gray-800">All Pets</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-2">
+          <FaUser className="text-orange-500" />
+          All Registered Users
+        </h1>
+        <span className="text-gray-600 font-medium mt-2 sm:mt-0">
+          Total Users: {allUsers?.length || 0}
+        </span>
       </div>
 
       {/* Table */}
       <motion.div
-        variants={animationVariants.container}
+        variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="overflow-x-auto rounded-xl shadow-md"
+        className="bg-white shadow-lg rounded-2xl border border-gray-200 p-4 md:p-8 overflow-x-auto"
       >
-        <Table className="min-w-full text-sm md:text-base bg-white">
-          <TableCaption>All Pets List Management</TableCaption>
-
+        <Table>
+          <TableCaption>A list of all registered users.</TableCaption>
           <TableHeader>
-            <TableRow className="bg-gray-100">
-              <TableHead className="w-[40px] text-center font-semibold">#</TableHead>
-              <TableHead className="font-semibold">Image</TableHead>
-              <TableHead className="font-semibold">Name</TableHead>
-              <TableHead className="font-semibold">Description</TableHead>
-              <TableHead className="font-semibold">Age</TableHead>
-              <TableHead className="font-semibold">Status</TableHead>
-              <TableHead className="text-center font-semibold">Actions</TableHead>
+            <TableRow>
+              <TableHead className="w-[40px] text-black">#</TableHead>
+              <TableHead className="text-black">Photo</TableHead>
+              <TableHead className="text-black">Name</TableHead>
+              <TableHead className="text-black">Email</TableHead>
+              <TableHead className="text-black">Role</TableHead>
+              <TableHead className="text-center text-black">Actions</TableHead>
             </TableRow>
           </TableHeader>
 
           <TableBody>
-            {allPets?.data?.map((pet, index) => (
+            {allUsers?.map((user, index) => (
               <motion.tr
-                key={pet._id}
-                variants={animationVariants.item}
-                className="border-b hover:bg-gray-50 transition"
+                key={user._id}
+                variants={rowVariants}
+                className="hover:bg-orange-50 transition-colors duration-200"
               >
-                <TableCell className="text-center">{index + 1}</TableCell>
+                <TableCell className="font-medium text-gray-700">{index + 1}</TableCell>
 
                 <TableCell>
-                  <div className="w-12 h-12 relative">
-                    <Image
-                      src={pet.image}
-                      alt={pet.name}
-                      fill
-                      className="object-cover rounded-full"
+                  {user.photo ? (
+                    <img
+                      src={user.photo}
+                      alt={user.name}
+                      className="rounded-full h-12 w-12 border border-gray-300 object-cover"
                     />
-                  </div>
+                  ) : (
+                    <div className="w-12 h-12 flex items-center justify-center bg-gray-200 rounded-full text-gray-500">
+                      <FaUser />
+                    </div>
+                  )}
                 </TableCell>
 
-                <TableCell className="font-medium">{pet.name}</TableCell>
-                <TableCell className="max-w-xs truncate">{pet.description}</TableCell>
-                <TableCell>{pet.age}</TableCell>
-                <TableCell>
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs md:text-sm ${
-                      pet.status === 'pending'
-                        ? 'bg-yellow-100 text-yellow-600'
-                        : pet.status === 'accepted'
-                        ? 'bg-green-100 text-green-600'
-                        : 'bg-rose-100 text-rose-600'
-                    }`}
-                  >
-                    {pet.status}
-                  </span>
+                <TableCell className="font-semibold text-gray-800">{user.name}</TableCell>
+                <TableCell className="text-gray-600">{user.email}</TableCell>
+
+                <TableCell className="capitalize">
+                  {user.role === 'admin' ? (
+                    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full flex items-center gap-1 w-fit">
+                      <MdAdminPanelSettings size={18} /> Admin
+                    </span>
+                  ) : (
+                    <span className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full flex items-center gap-1 w-fit">
+                      <FaUser size={16} /> User
+                    </span>
+                  )}
                 </TableCell>
 
                 <TableCell className="text-center">
-                  {pet.status === 'pending' && (
-                    <div className="flex flex-col items-center gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2 justify-center items-center">
+                    {user.role !== 'admin' && (
                       <Button
-                        onClick={() => handleAccepted(pet._id)}
-                        disabled={isProcessing}
-                        className="bg-green-200 text-green-600 hover:bg-green-300 text-xs md:text-sm"
+                        onClick={() => handleMakeAdmin(user.email)}
+                        className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-1 text-sm rounded-full"
                       >
-                        {isProcessing ? 'Processing...' : 'Accept'}
+                        Make Admin
                       </Button>
-                      <Button
-                        onClick={() => handleRejectClick(pet)}
-                        disabled={isProcessing}
-                        className="bg-rose-200 text-rose-600 hover:bg-rose-300 text-xs md:text-sm"
-                      >
-                        Reject
-                      </Button>
-                    </div>
-                  )}
+                    )}
+
+                    {/* Delete with confirmation modal */}
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          onClick={() => setSelectedUser(user)}
+                          className="bg-rose-500 hover:bg-rose-600 text-white px-4 py-1 text-sm rounded-full"
+                        >
+                          Delete
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This action cannot be undone. It will permanently delete{" "}
+                            <strong>{selectedUser?.name}</strong>’s account.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={handleDelete}
+                            className="bg-rose-500 hover:bg-rose-600 text-white"
+                          >
+                            Confirm Delete
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </div>
                 </TableCell>
               </motion.tr>
             ))}
           </TableBody>
         </Table>
       </motion.div>
-
-      {/* 🧩 Reject Confirmation Alert */}
-      <AlertDialog open={openAlert} onOpenChange={setOpenAlert}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Confirm Rejection</AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you sure you want to reject{' '}
-              <span className="font-semibold">{selectedPet?.name}</span>?<br />
-              This action cannot be undone.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={isProcessing}>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={confirmReject}
-              className="bg-rose-500 hover:bg-rose-600 text-white"
-              disabled={isProcessing}
-            >
-              {isProcessing ? 'Rejecting...' : 'Confirm Reject'}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </div>
+    </section>
   );
 };
 
-export default AllPets;
+export default AllUserPage;
