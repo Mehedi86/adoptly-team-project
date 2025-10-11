@@ -31,9 +31,9 @@ const AdoptedList = ({ adoptedData, adoptedFilterData }) => {
                                         <td>
                                             <div className="dropdown dropdown-end">
                                                 <div tabIndex={0} role="button" className="btn bg-white text-black shadow-none border border-[#bbb] m-1">...</div>
-                                                <ul tabIndex={0} className="dropdown-content menu bg-white rounded-box z-1 w-52 p-2 shadow-sm">
-                                                    <li onClick={() => { onOpenModal(), setSelectedData(adopted) }}><a>Update</a></li>
-                                                    <li onClick={() => handleRequestDataDelete(adopted._id)}><a>Delete</a></li>
+                                                <ul tabIndex={0} className="space-y-2 dropdown-content menu bg-white rounded-box z-1 w-52 p-2 shadow-sm">
+                                                    <li className='bg-[#219ebc] text-white' onClick={() => { onOpenModal(), setSelectedData(adopted) }}><a>Update</a></li>
+                                                    <li className='bg-[#c1121f] text-white' onClick={() => handleRequestDataDelete(adopted._id)}><a>Delete</a></li>
                                                 </ul>
                                             </div>
                                         </td>

@@ -4,11 +4,13 @@ import { useState } from 'react';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import { useForm } from 'react-hook-form';
+import useAuth from '@/hooks/useAuth';
 
 const UserDataUpdate = ({ refetch, petSelectedData, petDataOpen, onPetDataCloseModal }) => {
 
     const [isDescription, setIsDescription] = useState("");
     const axiosPublic = useAxiosPublic();
+    const { user } = useAuth();
 
     const {
         register,
@@ -34,7 +36,7 @@ const UserDataUpdate = ({ refetch, petSelectedData, petDataOpen, onPetDataCloseM
             },
             quantity: parseInt(data.quantity) || 1,
             phoneNumber: data.phoneNumber || "",
-            // userEmail: user?.email || "",
+            userEmail: user?.email || "",
         };
 
         console.log('checking final data', requestData);

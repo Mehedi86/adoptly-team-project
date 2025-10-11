@@ -68,7 +68,7 @@ const userProfile = () => {
             aboutUser: isDescription
         }
 
-        const res = await axiosPublic.put(`/user/${user?.email}`, otherInfo)
+        const res = await axiosPublic.patch(`/user/${user?.email}`, otherInfo)
         if (res.status === 200) {
             refetch()
             onCloseAddModal()
@@ -175,7 +175,7 @@ const userProfile = () => {
                         <input {...register2("address", { required: true })} defaultValue={userData?.address} className='w-full border border-[#bbbb] bg-white text-black dark:bg-black dark:text-white input focus:outline-0' placeholder='Enter your address' type="text" />
                     </div>
                     <div>
-                        <label htmlFor="">How many pets are there?</label>
+                        <label htmlFor="">Your have pets?</label>
                         <div className='flex items-center gap-5 my-2'>
                             <div className='flex items-center gap-2'>
                                 <p>Yes</p>
