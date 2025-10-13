@@ -6,20 +6,21 @@ import AdoptionFilter from './component/adoptionFilter/AdoptionFilter';
 import { useEffect, useState } from 'react';
 import useAuth from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
+import ProtectedRoute from '@/components/protectedRoute/UserProtectedRoute';
 
 const allPets = () => {
 
-    const { user, loading:firebaseLoading } = useAuth();
-    const router = useRouter();
+    // const { user, loading: firebaseLoading } = useAuth();
+    // console.log(user);
+    // const router = useRouter();
 
-    useEffect(() => {
-        if (!user.email && !loading) {
-            router.push('/login');
-          
-        }
-    }, [user, firebaseLoading, router]);
+    // useEffect(() => {
+    //     if (!user?.email) {
+    //         router.push('/login'); 
+    //     }
+    // }, [user, firebaseLoading, router]);
 
-    
+
     const axiosPublic = useAxiosPublic();
     const [toggle, setToggle] = useState(false);
     // Filtering
@@ -49,8 +50,6 @@ const allPets = () => {
         }
     })
 
-   
-
     const adoptionData = data?.data || []
     const total = data?.total || 0;
     const totalPages = Math.ceil(total / limit);
@@ -64,9 +63,10 @@ const allPets = () => {
     }
 
     return (
-        <div className='flex'>
-            <AdoptionFilter
-                // filterPetData={filterPetData}
+        <ProtectedRoute>
+              <div className='flex'>
+            <AdoptionFilter a
+                adoptionData={adoptionData}
                 filter={filter}
                 setFilter={setFilter}
                 toggle={toggle}
@@ -82,6 +82,7 @@ const allPets = () => {
 
             />
         </div>
+      </ProtectedRoute>
     );
 };
 
