@@ -1,4 +1,5 @@
 "use client"
+import UserProtectedRoute from '@/components/protectedRoute/UserProtectedRoute';
 import useAxiosPublic from '@/hooks/axiosPublic/useAxiosPublic';
 import useAuth from '@/hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
@@ -45,7 +46,8 @@ const UserDashboard = () => {
   const mixtedLoading = postLoading || requestLoading || adoptedLoading;
 
   return (
-    <div className='my-10 mx-5'>
+    <UserProtectedRoute>
+       <div className='my-10 mx-5'>
       <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-5'>
         {
           !mixtedLoading ? (
@@ -107,6 +109,7 @@ const UserDashboard = () => {
 
       </div>
     </div>
+   </UserProtectedRoute>
   );
 };
 

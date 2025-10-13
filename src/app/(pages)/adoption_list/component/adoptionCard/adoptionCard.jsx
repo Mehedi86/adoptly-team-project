@@ -140,7 +140,7 @@ const AdoptionCard = ({ loading, adoptionData, currentPage, totalPages, handlePa
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
                 {
                     adoptionData.map(adoption => (
-                        <div className="group shadow-2xl rounded-xl dark:rounded-xl dark:border">
+                        <div key={adoption._id} className="group shadow-2xl rounded-xl dark:rounded-xl dark:border">
                             <div className='relative'>
                                 <div className="relative z-10 h-72 overflow-hidden rounded-t-2xl">
                                     <Image className="group-hover:scale-110 group-hover:rotate-3 duration-300 w-full h-full rounded-t-xl" src={adoption.image} width={500} height={300} alt="adoption.title" />

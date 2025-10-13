@@ -20,6 +20,7 @@ import { adminDataFetching } from '@/hooks/adminDataFetching/admin';
 import useAuth from '@/hooks/useAuth';
 import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { axiosPublic } from '@/lib/axios/axios';
+import AdminProtectedRoute from '@/components/protectedRoute/AdminProtectedRoute';
 
 // 🌀 Framer Motion Animation Variants
 const animationVariants = {
@@ -96,7 +97,8 @@ const confirmReject = async () => {
     return <p className="text-center py-10 text-red-500 text-lg">Failed to load pets 😢</p>;
 
   return (
-    <div className="p-4 md:p-8">
+    <AdminProtectedRoute>
+       <div className="p-4 md:p-8">
       {/* Header */}
       <div className="mb-6 flex items-center gap-2">
         <MdPets className="text-3xl text-primary" />
@@ -210,6 +212,7 @@ const confirmReject = async () => {
         </AlertDialogContent>
       </AlertDialog>
     </div>
+   </AdminProtectedRoute>
   );
 };
 
