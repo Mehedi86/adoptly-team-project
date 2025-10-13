@@ -39,6 +39,7 @@ const userManagePost = () => {
             <UserPost
                 refetch={refetch}
                 user={user}
+                loading={loading}
                 userPostData={userPostData}
                 open={open}
                 onOpenModal={onOpenModal}
