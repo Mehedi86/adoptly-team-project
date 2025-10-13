@@ -3,10 +3,23 @@ import AdoptionCard from './component/adoptionCard/adoptionCard';
 import useAxiosPublic from '@/hooks/axiosPublic/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import AdoptionFilter from './component/adoptionFilter/AdoptionFilter';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useAuth from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
 
 const allPets = () => {
 
+    const { user, loading:firebaseLoading } = useAuth();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!user.email && !loading) {
+            router.push('/login');
+          
+        }
+    }, [user, firebaseLoading, router]);
+
+    
     const axiosPublic = useAxiosPublic();
     const [toggle, setToggle] = useState(false);
     // Filtering
