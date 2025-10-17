@@ -2,19 +2,24 @@
 import { useRouter } from "next/navigation";
 import useAuth from "@/hooks/useAuth";
 import { useEffect } from "react";
+import useAdmin from "@/hooks/useAdmin/useAdmin";
 
 export default function UserProtectedRoute({ children }) {
   const { user, loading } = useAuth();
+  const [isAdmin, isAdminLoading] = useAdmin();
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && !user) {
-      router.replace("/login"); // redirect
+    if (!loading && !isAdminLoading) {
+     
+      if (!user || isAdmin) {
+        router.replace("/login");
+      }
     }
-  }, [user, loading, router]);
+  }, [user, loading, isAdmin, isAdminLoading, router]);
 
-
-  if (loading) {
+  // 🌀 Loading state
+  if (loading || isAdminLoading) {
     return (
       <div className="h-screen flex items-center justify-center text-gray-500">
         Checking authentication...
@@ -22,8 +27,8 @@ export default function UserProtectedRoute({ children }) {
     );
   }
 
- 
-  if (user) {
+  // ✅ user logged in and not admin
+  if (user && !isAdmin) {
     return children;
   }
 

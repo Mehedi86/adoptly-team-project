@@ -102,7 +102,7 @@ const confirmReject = async () => {
       {/* Header */}
       <div className="mb-6 flex items-center gap-2">
         <MdPets className="text-3xl text-primary" />
-        <h1 className="text-3xl font-bold text-gray-800">All Pets</h1>
+        <h1 className="text-3xl font-bold text-gray-700">All Pets</h1>
       </div>
 
       {/* Table */}
@@ -112,11 +112,11 @@ const confirmReject = async () => {
         animate="visible"
         className="overflow-x-auto rounded-xl shadow-md"
       >
-        <Table className="min-w-full text-sm md:text-base bg-white">
+        <Table className="min-w-full text-sm md:text-base ">
           <TableCaption>All Pets List Management</TableCaption>
 
           <TableHeader>
-            <TableRow className="bg-gray-100">
+            <TableRow className="">
               <TableHead className="w-[40px] text-center font-semibold">#</TableHead>
               <TableHead className="font-semibold">Image</TableHead>
               <TableHead className="font-semibold">Name</TableHead>
