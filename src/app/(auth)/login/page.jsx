@@ -8,7 +8,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa";
 import toast from "react-hot-toast";
-import { createUser } from "@/server/userQuery/user";
+import { createUser, userVerify } from "@/server/userQuery/user";
 
 // 🧩 Separate inner component so we can wrap with Suspense
 function LoginContent() {
@@ -28,17 +28,23 @@ function LoginContent() {
 
 
   // 🔐 Email/password login
-  const onSubmit = async(data) => {
+  const onSubmit = async (data) => {
     const result = await userLoginSystem(data?.email, data?.password);
+    const userInfo = {
+      email: data.email,
+      password: data.password
+    }
     try {
       if (result.user) {
-        toast.success('user login successful')
-        router.push(location)
-      }
+        // const userData = await userVerify(userInfo);
+        console.log('checking userdata for login', userData);
+        toast.success('user login successful');
+        router.push(location);
+      }  
     } catch (error) {
       console.log('from login page', error);
-         toast.error("Invalid email or password")
-    setLoading(false)  
+      toast.error("Invalid email or password")
+      setLoading(false)
     }
   };
 
@@ -62,7 +68,7 @@ function LoginContent() {
     } catch (error) {
       console.error("Google sign-in failed:", error);
       // toast.error("This email may already exist in the database.");
-     
+
     }
   };
 
@@ -96,7 +102,7 @@ function LoginContent() {
             type="submit"
             className="bg-white/65 text-black dark:bg-black dark:text-muted-foreground  py-3 rounded-md mt-3 cursor-pointer transition"
           >
-          {  loading ?'Processing...': 'Login'}
+            {loading ? 'Processing...' : 'Login'}
           </button>
         </form>
 
