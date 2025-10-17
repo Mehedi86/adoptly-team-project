@@ -46,11 +46,11 @@ const AdoptionFilter = ({ filter, setFilter, toggle, handleToggle }) => {
                     onChange={(e) => setFilter({ ...filter, species: e.target.value })}
                     className="border w-full p-2"
                 >
-                    <option value="">Select Species</option>
+                    <option className="dark:text-black" value="">Select Species</option>
                     {
                         filterPetData?.length > 0 ? (
                             filterPetData?.map((species, index) => (
-                                <option key={index} value={species?.species}>
+                                <option className="dark:text-black" key={index} value={species?.species}>
                                     {species?.species || "N/A"}
                                 </option>
                             ))
@@ -72,7 +72,7 @@ const AdoptionFilter = ({ filter, setFilter, toggle, handleToggle }) => {
                     {
                         filterPetData?.length > 0
                             ? filterPetData.map((item, index) => (
-                                <option key={index} value={item?.address?.district}>
+                                <option className="dark:text-black" key={index} value={item?.address?.district}>
                                     {item?.address?.district || "N/A"}
                                 </option>
                             ))
@@ -91,7 +91,7 @@ const AdoptionFilter = ({ filter, setFilter, toggle, handleToggle }) => {
                     {
                         filterPetData?.length > 0
                             ? filterPetData.map((item, index) => (
-                                <option key={index} value={item?.address?.division}>
+                                <option className="dark:text-black" key={index} value={item?.address?.division}>
                                     {item?.address?.division || "N/A"}
                                 </option>
                             ))
