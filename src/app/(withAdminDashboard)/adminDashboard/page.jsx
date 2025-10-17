@@ -41,7 +41,6 @@ const AdminDashboard = () => {
   const { data: allPets } = adminDataFetching.useAllPets();
   const { data: allPost } = adminDataFetching.useAllPost();
   const { data: allAdoptionPets } = adminDataFetching.useAllAdoptionPets();
-  console.log(allAdoptionPets)
 
 
   if (isLoading)
@@ -60,7 +59,7 @@ const AdminDashboard = () => {
   const totalAdoption = allAdoptionPets?.pets?.length || 0;
 
   return (
-    <AdminProtectedRoute>
+ 
        <section className="p-8 grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       {/* 🧍‍♂️ All Users Card */}
       <motion.div
@@ -158,7 +157,7 @@ const AdminDashboard = () => {
 
 
     </section>
-   </AdminProtectedRoute>
+  
   );
 };
 
