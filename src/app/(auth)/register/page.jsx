@@ -14,9 +14,9 @@ import { FaGoogle } from "react-icons/fa";
 function RegisterContent() {
   // const searchParams = useSearchParams();
   // const location = searchParams.get("redirect") || "/";
-   const [location, setLocation] = useState("/");
+  const [location, setLocation] = useState("/");
   const router = useRouter();
-  const { userRegistrationSystem, googleAuthSystem , loading,setLoading } = useAuth();
+  const { userRegistrationSystem, googleAuthSystem, loading, setLoading } = useAuth();
   const {
     register,
     handleSubmit,
@@ -34,6 +34,7 @@ function RegisterContent() {
     const userInfo = {
       name: data.name,
       email: data.email,
+      // password: data.password,
       photo: data.profilePic,
       role: "user",
     };
@@ -71,7 +72,7 @@ function RegisterContent() {
     } catch (error) {
       console.error("Google sign-in failed:", error);
       // toast.error("This email already exists in the database.");
-      
+
     }
   };
 
@@ -136,7 +137,7 @@ function RegisterContent() {
             type="submit"
             className="bg-white/65 text-black dark:bg-black dark:text-muted-foreground rounded-md mt-4 p-3 cursor-pointer transition"
           >
-          {loading ? 'Processing...' : 'Register'}
+            {loading ? 'Processing...' : 'Register'}
           </button>
         </form>
 

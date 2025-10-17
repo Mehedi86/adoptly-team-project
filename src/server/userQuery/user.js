@@ -17,7 +17,7 @@ export const createUser = async (userInfo) => {
     //   throw new Error("Failed to create user");
     // }
 
-    const {data} = await axiosPublic.post('/user', userInfo)
+    const { data } = await axiosPublic.post('/user', userInfo)
 
     return await data;
   } catch (error) {
@@ -28,4 +28,13 @@ export const createUser = async (userInfo) => {
 
 };
 
+
+export const userVerify = async (userInfo) => {
+  try {
+    const resData = await axiosPublic.post('/login', userInfo);
+    return await resData;
+  } catch (error) {
+    console.error("Invaild user");
+  }
+}
 
