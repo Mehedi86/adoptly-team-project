@@ -37,7 +37,6 @@ function LoginContent() {
     try {
       if (result.user) {
         // const userData = await userVerify(userInfo);
-        console.log('checking userdata for login', userData);
         toast.success('user login successful');
         router.push(location);
       }  

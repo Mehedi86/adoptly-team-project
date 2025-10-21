@@ -16,6 +16,7 @@ const UserDashboard = () => {
   // Total Post api
   const { data: totalPost = [], refetch: postRefetch, isLoading: postLoading } = useQuery({
     queryKey: ["userPostData", user?.email],
+    enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosPublic.get(`/pets/user/${user?.email}`);
       // console.log('checking data', res)
@@ -26,6 +27,7 @@ const UserDashboard = () => {
   // Total Request api
   const { data: totalRequest = [], refetch: requestRefetch, isLoading: requestLoading } = useQuery({
     queryKey: ["userRequestData", user?.email],
+    enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosPublic.get(`/request/user/${user?.email}`);
       return res.data.request
@@ -35,6 +37,7 @@ const UserDashboard = () => {
   // Total adopted api
   const { data: totaladopted = [], refetch: adoptedRefetch, isLoading: adoptedLoading } = useQuery({
     queryKey: ["adoptedData", user?.email],
+    enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosPublic.get(`/request/user/${user?.email}`);
       return res.data.request
