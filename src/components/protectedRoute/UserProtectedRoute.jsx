@@ -12,7 +12,7 @@ export default function UserProtectedRoute({ children }) {
   useEffect(() => {
     if (!loading && !isAdminLoading) {
      
-      if (!user || isAdmin) {
+      if (!user ) {
         router.replace("/login");
       }
     }
