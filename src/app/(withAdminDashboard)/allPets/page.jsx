@@ -148,7 +148,7 @@ const confirmReject = async () => {
                 </TableCell>
 
                 <TableCell className="font-medium">{pet.name}</TableCell>
-                <TableCell className="max-w-xs truncate">{pet.description}</TableCell>
+                <TableCell className="max-w-xs truncate hover:text-black">{pet.description}</TableCell>
                 <TableCell>{pet.age}</TableCell>
                 <TableCell>
                   <span

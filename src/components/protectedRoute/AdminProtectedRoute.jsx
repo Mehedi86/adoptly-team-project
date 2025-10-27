@@ -19,6 +19,13 @@ export default function AdminProtectedRoute({ children }) {
     }
   }, [user, isAdmin, loading, isAdminLoading, router]);
 
+    if (loading || isAdminLoading) {
+    return (
+      <div className="h-screen flex items-center justify-center text-gray-500">
+        Checking authentication...
+      </div>
+    );
+  }
  
 
   if (user && isAdmin) {

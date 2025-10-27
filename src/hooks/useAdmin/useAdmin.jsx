@@ -13,15 +13,17 @@ const useAdmin = () => {
     refetch,
   } = useQuery({
     queryKey: ['userRole', user?.email],
-    enabled: !!user?.email && !authLoading, // ✅ wait until user is ready
+    enabled: !!user?.email && !authLoading,
     queryFn: async () => {
       const res = await axiosPublic.get(`/user?email=${user.email}`);
       return res.data?.role || 'user';
     },
   });
 
-  const isAdmin = role === 'admin';
-  const isAdminLoading = authLoading || roleLoading; // combine both
+  
+  const isAdmin = role ? role === 'admin' : undefined;
+
+  const isAdminLoading = authLoading || roleLoading || role === undefined;
 
   return [isAdmin, isAdminLoading, refetch];
 };
