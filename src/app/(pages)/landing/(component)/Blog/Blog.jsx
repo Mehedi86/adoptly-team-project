@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaAnglesRight } from "react-icons/fa6";
+import Link from "next/link";
 
 const blogs = [
   {
@@ -50,9 +51,11 @@ export default function BlogSection() {
         <h2 className="text-2xl md:text-3xl font-bold">
           Latest Blog & Articles
         </h2>
-        <button className="bg-orange-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-orange-600 transition cursor-pointer">
-          Contact Us
-        </button>
+        <Link href={"/contact"}>
+          <button className="bg-orange-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-orange-600 transition cursor-pointer">
+            Contact Us
+          </button>
+        </Link>
       </div>
 
       {/* Blog Cards */}
