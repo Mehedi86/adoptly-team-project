@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaAnglesRight } from "react-icons/fa6";
 import Link from "next/link";
+import { useState } from "react";
 
 const blogs = [
   {
@@ -44,6 +45,12 @@ const fadeUp = {
 };
 
 export default function BlogSection() {
+  const [learnMore, setLearnMore] = useState(false);
+
+  const handleLearnMore = () => {
+    setLearnMore((prev) => !prev);
+  };
+
   return (
     <section className="w-11/12 mx-auto my-16">
       {/* Header */}
@@ -88,9 +95,12 @@ export default function BlogSection() {
                 {blog.title}
               </h1>
               <p className="font-lato text-[#757575]">
-                {blog.desc.slice(0, 110)}...
+                {learnMore ? blog.desc : <>{blog.desc.slice(0, 110)}...</>}
               </p>
-              <button className="btn w-32 rounded-xl border-0 bg-[#E76F51] text-white">
+              <button
+                onClick={handleLearnMore}
+                className="btn w-32 rounded-xl border-0 bg-[#E76F51] text-white"
+              >
                 Read More
                 <FaAnglesRight />
               </button>
