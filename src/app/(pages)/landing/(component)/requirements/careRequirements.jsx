@@ -2,6 +2,7 @@
 
 import { Check } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const features = [
   {
@@ -35,7 +36,11 @@ export default function CareRequirements() {
 
   const featureVariant = {
     hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   return (
@@ -52,9 +57,11 @@ export default function CareRequirements() {
             massa blandit mattis. Laoreet natoque volutpat auctor augue taciti
             sapien lectus habitasse.
           </p>
-          <button className="mt-6  bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-6 py-3 rounded-lg transition">
-            Discover More
-          </button>
+          <Link href={"/about"}>
+            <button className="mt-6 cursor-pointer bg-[#F05F3B] hover:bg-[#F05F3B] text-white font-semibold px-6 py-3 rounded-lg transition">
+              Discover More
+            </button>
+          </Link>
         </div>
 
         {/* Right Features */}
@@ -73,8 +80,12 @@ export default function CareRequirements() {
             >
               <Check className="text-red-400 w-52 text-5xl mt-1" />
               <div>
-                <h3 className="font-bold text-lg text-gray-900 dark:text-[#cfcfcf]">{item.title}</h3>
-                <p className="text-gray-600 text-sm mt-1 dark:text-[#bbbbbbd3]">{item.description}</p>
+                <h3 className="font-bold text-lg text-gray-900 dark:text-[#cfcfcf]">
+                  {item.title}
+                </h3>
+                <p className="text-gray-600 text-sm mt-1 dark:text-[#bbbbbbd3]">
+                  {item.description}
+                </p>
               </div>
             </motion.div>
           ))}
