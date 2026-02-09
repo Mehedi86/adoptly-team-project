@@ -45,12 +45,6 @@ const fadeUp = {
 };
 
 export default function BlogSection() {
-  const [learnMore, setLearnMore] = useState(false);
-
-  const handleLearnMore = () => {
-    setLearnMore((prev) => !prev);
-  };
-
   return (
     <section className="w-11/12 mx-auto my-16">
       {/* Header */}
@@ -95,15 +89,14 @@ export default function BlogSection() {
                 {blog.title}
               </h1>
               <p className="font-lato text-[#757575]">
-                {learnMore ? blog.desc : <>{blog.desc.slice(0, 110)}...</>}
+                {blog.desc.slice(0, 110)}
               </p>
-              <button
-                onClick={handleLearnMore}
-                className="btn w-32 rounded-xl border-0 bg-[#E76F51] text-white"
-              >
-                Read More
-                <FaAnglesRight />
-              </button>
+              <Link href={"/blog"}>
+                <button className="btn w-32 rounded-xl border-0 bg-[#E76F51] text-white">
+                  Read More
+                  <FaAnglesRight />
+                </button>
+              </Link>
             </div>
           </motion.div>
           // <motion.div
