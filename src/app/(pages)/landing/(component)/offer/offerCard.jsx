@@ -7,7 +7,6 @@ export default function OfferCard({ icon, title, description, active }) {
 
   const handleLearnMore = () => {
     setLearnMore((prev) => !prev);
-    console.log("clicked");
   };
 
   const cardVariant = {
@@ -18,7 +17,6 @@ export default function OfferCard({ icon, title, description, active }) {
       transition: { duration: 0.6, ease: "easeOut" },
     },
   };
-  console.log(learnMore);
 
   return (
     <motion.div
