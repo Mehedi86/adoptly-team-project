@@ -3,6 +3,7 @@ import { LuLayoutGrid } from "react-icons/lu";
 import { BsFilePost, BsListCheck } from "react-icons/bs";
 import { ImProfile } from "react-icons/im";
 import { FaRegListAlt } from "react-icons/fa";
+import { IoMdGitPullRequest } from "react-icons/io";
 
 
 import {
@@ -34,6 +35,11 @@ const items = [
     title: "Manage Post",
     url: "/userDashboard/manage_post",
     icon: BsFilePost,
+  },
+  {
+    title: "Post Requests",
+    url: "/userDashboard/post_requests",
+    icon: IoMdGitPullRequest
   },
   {
     title: "Your Request",
