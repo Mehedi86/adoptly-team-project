@@ -11,39 +11,39 @@ export default function OfferSection() {
       icon: <PawPrint size={32} className="text-blue-500" />,
       title: "Pet Adoption",
       description:
-        "Rutrum sodales vitae interdum commodo porta penatibus. Ad elit sagittis sodales fames lacinia id litora quis sagittis.",
+        "Join our pet adoption program and give loving homes to animals in need. Discover dogs, cats, and other pets waiting for a second chance, and make a positive impact on their lives.",
       active: true,
     },
     {
       icon: <Stethoscope size={32} className="text-green-500" />,
       title: "Veterinary Care",
       description:
-        "Rutrum sodales vitae interdum commodo porta penatibus. Ad elit sagittis sodales fames lacinia id litora quis sagittis.",
+        "Comprehensive veterinary care to keep your pets healthy and happy. From routine check-ups to emergency treatments, we provide professional medical attention for dogs, cats, and other animals.",
     },
     {
       icon: <Scissors size={32} className="text-pink-500" />,
       title: "Pet Grooming",
       description:
-        "Rutrum sodales vitae interdum commodo porta penatibus. Ad elit sagittis sodales fames lacinia id litora quis sagittis.",
+        "Professional pet grooming services to keep your pets looking and feeling their best. From baths and haircuts to nail trimming and styling, we ensure your furry friends stay healthy, clean, and happy.",
     },
     {
       icon: <PawPrint size={32} className="text-blue-500" />,
       title: "Pet Adoption",
       description:
-        "Rutrum sodales vitae interdum commodo porta penatibus. Ad elit sagittis sodales fames lacinia id litora quis sagittis.",
+        "Help animals find their forever homes through our pet adoption program. Discover loving dogs, cats, and other pets in need, and give them a second chance at happiness while gaining a loyal companion for life.",
       active: true,
     },
     {
       icon: <Stethoscope size={32} className="text-green-500" />,
       title: "Veterinary Care",
       description:
-        "Rutrum sodales vitae interdum commodo porta penatibus. Ad elit sagittis sodales fames lacinia id litora quis sagittis.",
+        "Providing compassionate and professional veterinary care to keep your pets healthy and happy. From routine check-ups and vaccinations to emergency treatments, we ensure every animal receives the medical attention and love they deserve.",
     },
     {
       icon: <Scissors size={32} className="text-pink-500" />,
       title: "Pet Grooming",
       description:
-        "Rutrum sodales vitae interdum commodo porta penatibus. Ad elit sagittis sodales fames lacinia id litora quis sagittis.",
+        "Keep your pets looking and feeling their best with our professional grooming services. From baths and haircuts to nail trimming and styling, we ensure your furry friends stay clean, healthy, and happy, all while enjoying a pampering experience.",
     },
   ];
 
@@ -55,7 +55,7 @@ export default function OfferSection() {
   return (
     <section className="py-12">
       <div className="max-w-7xl mx-auto px-6 text-center">
-      <OfferContent />
+        <OfferContent />
 
         {/* Cards Grid */}
         <motion.div
