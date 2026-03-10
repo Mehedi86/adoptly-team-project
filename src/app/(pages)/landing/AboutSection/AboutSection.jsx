@@ -31,7 +31,7 @@ const AboutSection = () => {
                   scale: 1.05
                 }}
                 transition={{
-                  duration: 0.2
+                  duration: 0.3
                 }}
                 className="btn bg-[#e76f51] text-white rounded-xl px-6 py-3 border-0 outline-0">
                 Discover More
