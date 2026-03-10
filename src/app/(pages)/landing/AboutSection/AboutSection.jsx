@@ -1,7 +1,9 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaPlay } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const AboutSection = () => {
   return (
@@ -24,11 +26,21 @@ const AboutSection = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-5 mt-3 justify-center lg:justify-start">
             <Link href="/about">
-              <button className="btn bg-[#e76f51] text-white rounded-xl px-6 py-3 border-0 outline-0">
+              <motion.button
+                whileHover={{
+                  scale: 1.05
+                }}
+                transition={{
+                  duration: 0.3
+                }}
+                className="btn bg-[#e76f51] text-white rounded-xl px-6 py-3 border-0 outline-0">
                 Discover More
-              </button>
+              </motion.button>
             </Link>
-            <div className="flex items-center gap-3">
+            <div
+              // onClick={() => document.getElementById("my_modal_3").showModal()}
+              className="flex items-center gap-3"
+            >
               <div className="border bg-[#e76f51d3] hover:bg-[#e76f51] duration-300 text-white border-white p-3 rounded-full shadow-2xl">
                 <FaPlay />
               </div>
@@ -36,7 +48,19 @@ const AboutSection = () => {
             </div>
           </div>
         </div>
-
+        {/* Modal Framer video */}
+        <dialog id="my_modal_3" className="modal">
+          <div className="modal-box">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
+            </form>
+            <h3 className="font-bold text-lg">Hello!</h3>
+            <p className="py-4">Press ESC key or click on ✕ button to close</p>
+          </div>
+        </dialog>
         {/* Right Content */}
         <div className="relative lg:w-1/2 w-full flex justify-center lg:justify-end">
           <div className="relative w-full max-w-md sm:max-w-lg lg:max-w-xl">
