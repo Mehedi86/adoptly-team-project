@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function AdoptionInfo() {
   return (
@@ -27,13 +28,15 @@ export default function AdoptionInfo() {
             Explore our pets available for adoption and find your new best friend.
             Each pet is cared for, vaccinated, and ready to join your family.
           </p>
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            whileHover={{ scale: 1.05 }}
-            className="bg-[#b4543b] hover:bg-[#e76f51] text-white font-bold px-6 py-3 rounded-full transition"
-          >
-            Learn More
-          </motion.button>
+          <Link href={"/about"}>
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05 }}
+              className="bg-[#b4543b] hover:bg-[#e76f51] text-white font-bold px-6 py-3 rounded-full transition"
+            >
+              Learn More
+            </motion.button>
+          </Link>
         </motion.div>
 
         {/* Image */}

@@ -85,7 +85,6 @@ const Navbar = () => {
 
     const handleToggleDarkAndLight = () => {
         const newTheme = isTheme ? "light" : "dark";
-        console.log("checking newTheme", newTheme);
         setIsTheme(!isTheme);
         document.documentElement.classList.toggle("dark", !isTheme);
         localStorage.setItem("theme", newTheme);
